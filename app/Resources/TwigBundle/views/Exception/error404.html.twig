@@ -1,0 +1,15 @@
+{% extends "BackendBundle::layout.html.twig" %}
+
+{% block content %}
+No se encontro la página solicitada.<BR>
+Dentro de unos segundos se le redireccionara a la página de inicio.
+{% endblock content %}
+
+{# No se carga ningun script #}    
+{% block javascripts %}
+    <script>
+        setTimeout( function() {
+            window.location.replace("{{ url('_maya_homepage') }}");
+        }, 15000);      
+    </script>
+{% endblock %}

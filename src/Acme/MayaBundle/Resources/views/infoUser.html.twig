@@ -1,0 +1,22 @@
+{% set user = app.user %}
+{% if user is defined and getIsUserOauth(user) %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="row media">
+        <div class="media-left col-xs-12 col-sm-5 col-md-4 col-lg-4">
+            <img class="media-object" src="{{ user.profilePicture }}" />
+        </div>
+        <div class="media-body col-xs-12 col-sm-7 col-md-8 col-lg-8">
+            <h4 class="media-heading">Datos del Cliente</h4>
+            <p>
+                Nombre: {{ user.realname | upper }}<BR>
+                Código: {{ getCodigoClienteOauth(user) }} <BR>
+                <a class="btn btn-primary" type="button" href="{{ path('hwi_oauth_logout') }}">
+                    <span class="glyphicon glyphicon-log-out"></span> Salir
+                </a>
+            </p>
+        </div>
+        </div>    
+    </div>
+</div>
+{% endif %}

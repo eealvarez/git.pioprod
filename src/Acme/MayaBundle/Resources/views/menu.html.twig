@@ -1,0 +1,101 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id='menu'>
+  <div class="container-fluid">
+    
+    <input id='loginCheckUserPath' type="hidden" value="{{ path('ajaxCheckUserOauthLogin') }}">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-menu">
+            <span class="sr-only">Menú</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand fdnBrand" href="{{ path('_maya_homepage') }}" style="color: white;" title="Ir al inicio de la página.">
+            <span class="glyphicon glyphicon-home" style="margin-right: 5px;"></span>
+            FDN
+        </a>
+        <div class="navbar-header pull-right visible-xs">
+            <a class="navbar-brand menuHelp" href="{{ path('_maya_pages',  { 'page': 'contact' }) }}" style="color: white;" title="Contacte con nosotros para recibir ayuda.">
+                <span class="glyphicon glyphicon-question-sign" style="margin-right: 5px;"></span>
+            </a>
+            <a class="iniciarSesion navbar-brand hidden controlUsuario" 
+               href="{{ path('ajaxLoginUserOauth') }}" 
+               data-loading-text="Cargando..." 
+               title="Iniciar sesión."
+               style="color: white;" >
+                <span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span>
+                Entrar
+            </a>
+            <a class="verPerfilUsuario navbar-brand hidden" 
+               href="{{ path('ajaxGetInfoUserOauth') }}" 
+               data-loading-text="Cargando..." 
+               title="Ver perfil de usuario."
+               style="padding: 5px;">
+                <img class="img-circle pictureProfile" style="max-height: 40px;"/>
+            </a>
+            <a class="cerrarSesion navbar-brand hidden" 
+               href="{{ path('hwi_oauth_logout') }}" 
+               data-loading-text="Cerrando..." 
+               title="Cerrar sesión."
+               style="color: white;">
+                <span class="glyphicon glyphicon-log-out"></span>
+            </a>
+        </div>
+    </div>
+    <div class="navbar-header pull-right hidden-xs">
+        <a class="navbar-brand menuHelp" href="{{ path('_maya_pages',  { 'page': 'contact' }) }}" style="color: white; margin-right: 15px;" title="Contacte con nosotros para recibir ayuda.">
+            <span class="glyphicon glyphicon-question-sign" style="margin-right: 5px;"></span>
+        </a>
+        <a class="iniciarSesion navbar-brand hidden controlUsuario" 
+           href="{{ path('ajaxLoginUserOauth') }}" 
+           data-loading-text="Cargando..." 
+           title="Iniciar sesión."
+           style="color: white;">
+            <span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span>
+            Iniciar Sesión
+        </a>
+        <a class="verPerfilUsuario navbar-brand hidden" 
+           href="{{ path('ajaxGetInfoUserOauth') }}" 
+           data-loading-text="Cargando..." 
+           title="Ver perfil de usuario."
+           style="padding: 5px; margin-right:15px;">
+            <img class="img-circle pictureProfile" style="margin-right: 5px; max-height: 40px;"/>
+        </a>
+        <a class="cerrarSesion navbar-brand hidden controlUsuario" 
+           href="{{ path('hwi_oauth_logout') }}" 
+           data-loading-text="Cerrando..." 
+           title="Cerrar sesión."
+           style="color: white;">
+            <span class="glyphicon glyphicon-log-out" style="margin-right: 5px;"></span>
+        </a>
+    </div>
+      
+    <div class="collapse navbar-collapse" id="navbar-collapse-menu" >
+        <ul id="menuTop" class="nav navbar-nav center-block menuTop">
+            {#<li><a href="{{ path('_maya_pages',  { 'page': 'aboutUs' }) }}" title="Historia de la empresa." class="menuHistoria" data-loading-text="Cargando...">
+                <span class="glyphicon glyphicon-book"></span>
+                Historia
+            </a></li>#}
+            <li><a href="{{ path('_maya_pages',  { 'page': 'services' }) }}" title="Descripción de los servicios que brinda la empresa." class="menuServicios" data-loading-text="Cargando...">
+                <span class="glyphicon glyphicon-star"></span>
+                Servicios
+            </a></li>
+            <li><a href="{{ path('ticket') }}"  title="Compra de boletos en linea." class="menuCompra" data-loading-text="Cargando...">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                Comprar
+            </a></li>
+            <li><a href="{{ path('_maya_pages',  { 'page': 'encomienda' }) }}" title="Consulta de encomiendas." class="menuEncomiendas" data-loading-text="Cargando...">
+                <span class="glyphicon glyphicon-briefcase"></span>
+                Encomiendas
+            </a></li>
+            <li><a href="{{ path('_maya_pages',  { 'page': 'oficinas' }) }}"  title="Información sobre nuestras oficinas principales." class="menuOficinas" data-loading-text="Cargando...">
+                <span class="glyphicon glyphicon-pushpin"></span>
+                Oficinas
+            </a></li>
+            <li><a href="{{ path('_maya_pages',  { 'page': 'contact' }) }}"  title="Llamenos o envienos un mensaje con sus opiniones." class="menuContacto" data-loading-text="Cargando...">
+                <span class="glyphicon glyphicon-phone-alt"></span>
+                Contactenos
+            </a></li>
+        </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,11 @@
+#Servicios activados de los vendors
+services:
+    twig.extension.text:
+     class: Twig_Extension_Debug
+     tags:
+        - { name: twig.extension }
+        
+    twig.extension.debug:
+     class: Twig_Extension_Debug
+     tags:
+       - { name: twig.extension }

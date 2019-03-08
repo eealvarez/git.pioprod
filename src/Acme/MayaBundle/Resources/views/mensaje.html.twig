@@ -1,0 +1,58 @@
+{% form_theme form 'EWZRecaptchaBundle:Form:ewz_recaptcha_widget.html.twig' %}
+
+<form id="contactform" action="{{ path(route) }}" method="post">
+    
+    {{ form_errors(form) }}
+    
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+            <!--[if lt IE 9]>
+            <label>Nombre completo</label>
+            <![endif]-->
+            {{ form_widget(form.nombre, {'attr': {'class':'contact col-xs-12 col-sm-12 col-md-12 col-lg-12',  'placeholder': 'Su nombre completo *' } }) }}
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <!--[if lt IE 9]>
+            <label>Correo electrónico</label>
+            <![endif]-->
+            {{ form_widget(form.correo, {'attr': {'class':'contact col-xs-12 col-sm-12 col-md-12 col-lg-12',  'placeholder': 'Correo electrónico *' } }) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!--[if lt IE 9]>
+            <label>Mensaje</label>
+            <![endif]-->
+            {{ form_widget(form.mensaje, {'attr': {'class':'contact col-xs-12 col-sm-12 col-md-12 col-lg-12',  'placeholder': 'Mensaje *' } }) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-bottom: 10px;">
+            <div id="recaptchaMessage" class="g-recaptcha hidden"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <input style="height: 74px;" class="btn btn-default sendMensaje contact submit col-xs-12 col-sm-12 col-md-12 col-lg-12" type="button" value="Enviar Mensaje" data-loading-text="Enviando mensaje...">
+        </div>
+    </div>
+    
+{#    <div class="form-group">
+        <div class="col-xs-12 col-sm-5 col-sm-offset-7 col-md-4 col-md-offset-8 col-lg-3 col-lg-offset-9" style="margin-top: 20px; margin-bottom: 40px;">
+            <input class="btn btn-default sendMensaje contact submit col-xs-12 col-sm-12 col-md-12 col-lg-12" type="button" value="Enviar Mensaje" data-loading-text="Enviando mensaje...">
+        </div>
+    </div>#}
+    
+     {{ form_rest(form) }}
+    
+</form>
+
+<script>
+    var autoStartCustomRecaptcha = function (){
+        customRecaptcha.funcionesAddOnload();
+    };
+    jQuery(function($) {
+        mensaje.funcionesAddOnload();
+    });
+</script>   
+<script src="https://www.google.com/recaptcha/api.js?onload=autoStartCustomRecaptcha&render=explicit" async defer></script>

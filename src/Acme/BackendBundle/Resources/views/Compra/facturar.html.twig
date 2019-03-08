@@ -1,0 +1,34 @@
+<form id="facturaForm" class="form-horizontal" action="{{ path(route) }}" method="post">
+    
+    {{ form_errors(form) }}
+    
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            {{ form_label(form.codigoCompra) }}
+            {{ form_widget(form.codigoCompra, {'attr': {'class':'form-control' } }) }}
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            {{ form_label(form.fecha) }}
+            {{ form_widget(form.fecha, {'attr': {'class':'form-control' } }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            {{ form_label(form.serieFactura) }}
+            {{ form_widget(form.serieFactura, {'attr': {'class':'form-control' } }) }}
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            {{ form_label(form.correlativoFactura) }}
+            {{ form_widget(form.correlativoFactura, {'attr': {'class':'form-control' } }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            {{ form_label(form.observacionesFactura) }}
+            {{ form_widget(form.observacionesFactura, {'attr': {'class':'form-control' } }) }}
+        </div>
+    </div>
+    
+    {{ form_rest(form) }}
+     
+</form>

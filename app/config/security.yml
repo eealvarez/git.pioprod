@@ -1,0 +1,97 @@
+security:
+    
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+#        Symfony\Component\Security\Core\User\User: plaintext
+        
+    providers:
+#        in_memory:
+#            memory:
+#                users:
+#                    admin:
+#                        password: 123
+#                        roles: 'ROLE_SUPER_ADMIN'
+        fos_userbundle:
+            id: fos_user.user_provider.username
+        oauth:
+            id: custom.hwi_oauth.user.provider.entity
+            
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        
+        admin_secured_area:
+            pattern:   ^/admin
+            anonymous: ~
+            provider: fos_userbundle
+            form_login:
+                login_path: /admin/login
+                check_path: /admin/login_check
+                default_target_path: /admin
+                csrf_provider: form.csrf_provider
+                success_handler: acme_backend.handler.login_success_handler
+                failure_handler: acme_backend.handler.login_failure_handler
+            logout:
+                path:   /admin/logout
+                target: /
+                success_handler: acme_backend.handler.logout_success_handler
+        
+        secured_area:
+            pattern:   ^/
+#            pattern:   ^/secured
+            anonymous: ~
+            provider: oauth
+            logout: true
+            oauth:
+                resource_owners:
+                    facebook:   /secured/login/check-facebook
+                    twitter:    /secured/login/check-twitter
+                    google:     /secured/login/check-google
+                login_path:     /secured/login
+                check_path:     /secured/login_check
+                failure_path:   /secured/login
+                use_forward: false
+                default_target_path: /#login
+#                default_target_path: /secured
+                oauth_user_provider:
+                    service: custom.hwi_oauth.user.provider.entity
+            logout:
+                path:   /secured/logout
+                target: /#login
+                
+#        main:
+#            pattern: ^/
+#            security: false
+            
+    access_control:
+        - { path: ^/login$, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/secured/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/secured/connect, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/app_dev.php/admin/login, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+        - { path: ^/app_dev.php/secured/connect, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+        - { path: ^/secured/connect, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        
+        - { path: ^/secured/*, roles: [ROLE_OAUTH_USER] }
+        - { path: ^/app_dev.php/secured/*, roles: [ROLE_OAUTH_USER] }
+        
+        - { path: ^/admin/job/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: ^/admin/estacion/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: ^/admin/rol/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: ^/admin/user/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: ^/admin/compra/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_GESTION_COMPRAS] }
+        - { path: ^/admin/compra/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_ENTREGA_COMPRAS] }
+        - { path: ^/admin/reportes/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_REPORTES] }
+        - { path: ^/admin/itinerariosimple/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_GESTION_ITINERARIOS] }
+        - { path: ^/admin/itinerarioespecial/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_GESTION_ITINERARIOS] }
+        - { path: ^/admin/itinerariocompuesto/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_GESTION_ITINERARIOS] }
+        - { path: ^/admin/conexioncompuesta/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_GESTION_CONEXIONES] }
+        - { path: ^/admin/conexionsimple/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_GESTION_CONEXIONES] }
+        - { path: ^/admin/galeria/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_EDITOR_CONTENIDO] }
+        - { path: ^/admin/galeriaimagen/*, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_EDITOR_CONTENIDO] }
+        
+        - { path: ^/admin/*, roles: [ROLE_USER] }
+        - { path: ^/app_dev.php/admin/*, roles: [ROLE_USER] }
+        
+        - { path: ^/*, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }

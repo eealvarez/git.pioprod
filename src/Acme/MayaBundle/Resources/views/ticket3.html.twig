@@ -1,0 +1,745 @@
+
+<section class="feedback" id="feedback">
+    <div class="container" style='padding-top: 22px;'>
+        <div id='divBusqueda'>
+            
+            <div class="heading">
+                <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+                <h2>Compra en linea</h2>
+                <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+            </div>
+            <div class="restmenuwrap">
+            <h3 class="maincat notopmarg text-center"><span class='glyphicon glyphicon-search' style='margin-right:10px;'></span>BUSCAR SALIDAS</h3>
+            <div class="maincat notopmarg text-center">
+                <form class="form-horizontal" id="conexionForm" role="form" name="conexionForm" action="{{ path('listarConexiones')}}" method="post" {{ form_enctype(form1) }}>
+                    <input type="hidden" name="mensajeServidor" id="mensajeServidor" value=""></input>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="btn-group" data-toggle="buttons" style="margin-top: 5px;">
+                                <label class="btn btn-default active">
+                                    {{ form_widget(form1.idaRegreso[0], {'attr': {'autocomplete': 'off'} }) }}
+                                    <span style="margin-right:5px;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>Solo ida
+                                </label>
+                                <label class="btn btn-default">
+                                    {{ form_widget(form1.idaRegreso[1], {'attr': {'autocomplete': 'off'} }) }}
+                                    <span style="margin-right:5px;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>Ida y regreso
+                                </label>
+                            </div>
+                            <div class="btn-group" data-toggle="buttons" style="margin-top: 5px;">
+                                <label class="btn btn-default">
+                                    {{ form_widget(form1.conexionesDirectas, {'attr': {'autocomplete': 'off'} }) }}
+                                   <span style="margin-right:5px;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>Viajes directos
+                                </label> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input id="pathListarOficinas" type="hidden" value="{{ path('ajaxListarOficinas') }}">
+                        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-lg-offset-1 col-sm-offset-1 col-md-offset-1" style="padding: 0px 20px;">
+                            {{ form_label(form1.estacionOrigen) }}
+                            <div class="form-group">
+                                {{ form_widget(form1.estacionOrigen , {'attr': {'placeholder': 'Estación de origen', 'required':'true', 'name':'origen'} }) }}  
+                            </div>
+                            {{ form_errors(form1.estacionOrigen) }}
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" style="padding: 0px 20px;">
+                            {{ form_label(form1.estacionDestino) }}
+                            <div class="form-group">
+                                {{ form_widget(form1.estacionDestino , {'attr': {'placeholder': 'Estación de destino', 'required':'true'} }) }}
+                            </div>
+                            {{ form_errors(form1.estacionDestino) }}
+                        </div>
+                        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" style="padding: 0px 20px;">
+                            {{ form_label(form1.cantidadPasajeros) }}
+                            <div class="form-group">
+                                {{ form_widget(form1.cantidadPasajeros , {'attr': {'placeholder': 'Pasajeros', 'required':'true'} }) }}
+                            </div>
+                            {{ form_errors(form1.cantidadPasajeros) }}
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" style="padding: 0px 20px;">
+                            {{ form_label(form1.fechaSalida) }}
+                            <div class="form-group">
+                                {{ form_widget(form1.fechaSalida , {'attr': {'placeholder': 'Seleccione la fecha de salida', 'required':'true'} }) }}
+                            </div>
+                            {{ form_errors(form1.fechaSalida) }}
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" style="padding: 0px 20px; display: none;" id="fechaRegresoDiv">
+                            {{ form_label(form1.fechaRegreso) }}
+                            <div class="form-group">
+                                {{ form_widget(form1.fechaRegreso , {'attr': {'placeholder': 'Seleccione la fecha de regreso', 'required':'true'} }) }}
+                            </div>
+                            {{ form_errors(form1.fechaRegreso) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-2 col-sm-offset-5 col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-5" style="padding: 0px 5px;">
+                           <a id="btnBuscar" href="#" class="btnUpper btnStep colorBtn btnStep-next btnStep-fill btnStep-warning btnStep-wd btnStep-sm btn-block" data-loading-text="Buscando..."><span class="glyphicon glyphicon-search" aria-hidden="true" style="margin-right: 5px;"></span>Buscar</a>
+                       </div>
+                    </div>
+                    <div id="ancla"></div>
+                    
+                {{ form_rest(form1) }}
+                </form>
+                <div id="noResultados" style="display: none;">
+                    <p class="bg-danger" style="padding: 15px;">
+                        <span class="glyphicon glyphicon-info-sign" style="margin-top: 5px;"></span>
+                        No se encontraron resultados.
+                    </p>
+                </div>
+            </div>
+            </div>
+            
+        </div>
+        <div id='contenidoBusqueda' style='display:none;'>
+            <div class="restmenuwrap">
+            <h3 class="maincat notopmarg text-center"><span class='glyphicon glyphicon-shopping-cart' style='margin-right:10px;'></span> COMPRA EN LINEA</h3>
+            <div class="maincat notopmarg">
+                <div class="restitem clearfix" id="compra">
+                <div class="form-horizontal" id="contenidoSuccesCompraDiv" style="display: none;">
+                    <div id="resultados">
+                        <div class="wizard-container"> 
+                            <div id="wizard" class="card wizard-card ct-wizard-red">
+
+                            <!--        You can switch "ct-wizard-orange"  with one of the next bright colors: "ct-wizard-blue", "ct-wizard-green", "ct-wizard-orange", "ct-wizard-red"             -->
+                                {#<div class="row">
+                                    <div class="wizard-header">
+                                        <div class="col-lg-2 col-md-2 col-xs-12 col-sm-2">
+                                            <img class="carrito" src="{{ asset('bundles/maya/images/carro.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-xs-10 col-sm-10 descriptionWizard">
+                                            <h3>
+                                               <b><a name="compra"></a>Realice su compra</b>
+                                               <small>Siga los pasos.</small>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>#}
+                                <div class="">
+                                    <ul class="nav nav-pills">
+                                        <li class="" style="padding-left: 0; padding-right:0; width: 20%;">
+                                            <a data-toggle="tab" class="col-lg-11 col-sm-10 col-xs-12 col-md-10 pasoActivo linkApp" href="#p_h" style="margin: 0;  font-size: 12px; border-radius: 10px 10px 0px 0px;">1. Selecci&oacute;n de Horarios</a>
+                                        </li>
+                                        <li class="" style="padding-left: 0; padding-right:0; width: 18%;">
+                                            <a data-toggle="tab" href="#p_d" style="font-size: 12px; border-radius: 10px 10px 0px 0px;" class="col-lg-11 col-sm-10 col-md-10 col-xs-12 linkApp pasoInactivo">2. Datos de Cliente</a>
+                                        </li>
+                                        <li class="" style="padding-left: 0; padding-right:0; width: 21%;">
+                                            <a data-toggle="tab" href="#p_a" style="font-size: 12px; border-radius: 10px 10px 0px 0px;" class="col-lg-11 col-sm-10 col-md-10 col-xs-12 linkApp pasoInactivo">3. Selecci&oacute;n de Asientos</a>
+                                        </li>
+                                        <li class="" style="padding-left: 0; padding-right:0; width: 19%;">
+                                            <a data-toggle="tab" href="#p_dp" style="font-size: 12px; border-radius: 10px 10px 0px 0px;" class="col-lg-11 col-sm-10 col-md-10 col-xs-12 linkApp pasoInactivo">4. Datos de Pasajeros</a>
+                                        </li>
+                                        <li class="" style="padding-left: 0; padding-right:0; width: 18%;">
+                                            <a data-toggle="tab" href="#p_r" style="font-size: 12px; border-radius: 10px 10px 0px 0px;" class="col-lg-11 col-sm-10 col-md-10 col-xs-12 linkApp pasoInactivo">5. Resumen de Compra</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="">
+                                    <div class="labelPasos sinPadding" style="display: none;" >
+                                        <div class="">Selecci&oacute;n de Horarios</div>
+                                        <div class="col-xs-offset-2">Datos de Cliente</div>
+                                        <div class="col-xs-offset-2">Selecci&oacute;n de Asientos</div>
+                                        <div class="col-xs-offset-2">Datos de Pasajeros</div>
+                                        <div class="col-xs-offset-4">Resumen de compra</div>
+                                    </div>
+                                </div>
+                                    <div class="tab-content" style="padding:10px 0 0 0 !important">
+                                        <div id="p_h" class="tab-pane">
+                                            <form id="contenidoResultados" class="" action="{{ path('loadCliente') }}">
+                                            </form>
+                                        </div>
+                                        <div id="p_d" class="tab-pane">
+                                            <div class='resumenProvisionalCompra form-horizontal' style='text-align: center;margin-bottom: 15px;'></div>
+                                            <div class='form-horizontal subtituloTrayectos' style='text-align: center;margin-bottom: 15px;'>
+                                                <span class="glyphicon glyphicon-info-sign" style='margin-right: 10px;'></span>La informaci&oacute;n de su compra ser&aacute; enviada al correo que usted especifique. 
+                                            </div>
+                                            <div class="">
+                                                <form class="form-horizontal col-lg-12 col-sm-12"  id='form2' role="form" name="form2" action="{{ path('validarCliente') }}" method="post" {{ form_enctype(form2) }}>
+                                                    <div class="camposForm" style="display: none;">
+                                                        <div class="sexo">
+                                                            <div class="col-lg-12">{{ form_label(form2.sexo) }}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.sexo,{'attr': {'placeholder':'Sexo'} }) }}</div>
+                                                            <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                                                            {{ form_errors(form2.sexo) }}
+                                                        </div>
+                                                        <div class="fechaNac">
+                                                            <div class="col-lg-12">{{ form_label(form2.fechaNacimiento) }}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.fechaNacimiento,{'attr': {'placeholder':'Fecha de nacimiento'} }) }}</div>
+                                                            <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>   
+                                                            {{ form_errors(form2.fechaNacimiento) }}
+                                                        </div>
+                                                        <div class="fechaVenc">
+                                                            <div class="col-lg-12">{{ form_label(form2.fechaVencimientoDocumento) }}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.fechaVencimientoDocumento,{'attr': {'placeholder':'Fecha venc. Documento'} }) }}</div>
+                                                            <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>{{ form_errors(form2.fechaVencimientoDocumento) }}
+                                                        </div>
+                                                        <div class="nombreApell">
+                                                            <div class="col-lg-12">{{ form_label(form2.nombreApellidos) }}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.nombreApellidos,{'attr': {'placeholder':'Nombre y Apellidos'} }) }}</div>
+                                                            <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>{{ form_errors(form2.nombreApellidos) }}
+                                                        </div>
+                                                        <div class="correo1">
+                                                            <div class="col-lg-12">{{ form_label(form2.correo.first) }}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.correo.first ,{'attr': {'placeholder':'Correo'} }) }}</div>
+                                                            <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>{{ form_errors(form2.correo.first) }}
+                                                        </div>
+                                                        <div class="correo2">
+                                                            <div class="col-lg-12">{{ form_label(form2.correo.second) }}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.correo.second,{'attr': {'placeholder':'Confirmar correo'} }) }}</div>
+                                                            <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>{{ form_errors(form2.correo.second) }}
+                                                        </div>
+                                                        <div class="telefono">
+                                                            <div class="col-lg-12">{{ form_label(form2.telefono) }}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.telefono,{'attr': {'placeholder':'Teléfono'} }) }}</div> 
+                                                            <div class="col-xs-1 col-lg-1" style="padding-left:1px; padding-right:0"></div>{{ form_errors(form2.telefono) }}
+                                                        </div>
+                                                        <div class="tipoDoc">
+                                                            <div class="col-lg-12">{{ form_label(form2.tipoDocumento)}}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.tipoDocumento,{'attr': {'placeholder':'Tipo de Documento'} }) }}</div>
+                                                            <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>{{ form_errors(form2.tipoDocumento) }}
+                                                        </div>
+                                                        <div class="numeroDoc">
+                                                            <div class="col-lg-12">{{ form_label(form2.numeroDocumento)}}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.numeroDocumento,{'attr': {'placeholder':'Número de Documento'} })}}</div>
+                                                            <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>{{ form_errors(form2.numeroDocumento) }}
+                                                        </div>
+                                                        <div class="nit">
+                                                            <div class="col-lg-12">{{ form_label(form2.nit)}}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.nit,{'attr': {'placeholder':'NIT'} })}}</div>
+                                                            <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0"></div>{{ form_errors(form2.nit) }}
+                                                        </div>
+                                                        <div class="nac">
+                                                            <div class="col-lg-12">{{ form_label(form2.nacionalidad)}}</div>
+                                                            <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;">{{ form_widget(form2.nacionalidad,{'attr': {'placeholder':'Nacionalidad'} }) }}</div>
+                                                            <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>{{ form_errors(form2.nacionalidad) }}
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <div class="col-lg-3 col-sm-3 col-xs-12 col1row1"></div>
+                                                        <div class="col-lg-3 col-sm-3 col-xs-12 col2row1"></div>
+                                                        <div class="col-lg-3 col-sm-3 col-xs-12 col3row1"></div>
+                                                        <div class="col-lg-3 col-sm-3 col-xs-12 col4row1"></div>
+                                                     </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-3 col-sm-3 col-xs-12 col1row2"></div>
+                                                        <div class="col-lg-3 col-sm-3 col-xs-12 col2row2"></div>
+                                                        <div class="col-lg-3 col-sm-3 col-xs-12 col3row2"></div>
+                                                        <div class="col-lg-3 col-sm-3 col-xs-12 col4row2"></div>
+                                                    </div>
+                                                    <div class="datosClienteRutaDetallesDIV form-group" style="display: none;">
+                                                        <div style="display: block;" class="col-lg-3 col-sm-3 col-xs-12 is_pasajeroDIV">
+                                                            <div class="">
+                                                              <div style="visibility: hidden;" class="col-lg-12 padding labelPasajero">Pasajero</div>
+                                                              <div class="btn-group btnPasajero col-lg-6 col-lg-offset-6 col-sm-12 col-xs-5" data-toggle="buttons" style="margin-top: 5px;" title="Marque si usted sera un pasajero. Esta ruta necesita otros datos personales.">
+                                                                    <label class="btn btn-default form-control col-lg-3 col-xs-11 col-sm-10">
+                                                                        <input type="checkbox" id="is_pasajero" value="1" autocomplete="off">
+                                                                        <span style="margin-right:5px;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>Pasajero
+                                                                    </label> 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="datosAdicionales">
+                                                            <div class="col-lg-3 col-xs-12 col-sm-3 col1row3"></div>
+                                                            <div class="col-lg-3 col-xs-12 col-sm-3 col2row3"></div>
+                                                            <div class="col-lg-3 col-xs-12 col-sm-3 col3row3"></div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <div class="col-lg-3 col-lg-offset-9 col-sm-4 col-sm-offset-8 col-md-4 col-md-offset-8 col-xs-12">
+                                                            <a href="" class="terminos linkSeleccionado linkApp"><span>T&eacute;rminos y condiciones del sitio</span></a>
+                                                            <span style="padding-left:2px; padding-right:0" class="aster">*</span>
+                                                         </div>
+                                                    </div>
+                                                    <div class="form-group errorCliente" style="display: none;">
+                                                        <div class="alert alert-danger" role="alert">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div id="p_a" class="tab-pane active">
+                                            <div class='form-horizontal asientos'>
+                                                <div class="">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  sinPadding">
+                                                        <div id="timerSesion" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden-xs" style="display: none;">
+                                                            <div class="form-control" style="height: 70px;">
+                                                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+                                                                    <div class="timerMenuLabel labelMenuAsientos" style="text-transform: uppercase;" >Tiempo de compra</div>
+                                                                    <div class=''>
+                                                                        <div class="timerDiv">
+                                                                            <span class="glyphicon glyphicon-time" style="margin-right: 10px; margin-top: 5px;"></span>
+                                                                            <span class="timer"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
+                                                                    <div class="timerMenuLabel labelMenuAsientos col-lg-12">Pasajeros</div>
+                                                                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 sinPadding"><select class="textRight cantPasajeros form-control"></select></div>
+                                                                </div>
+                                                                <div class="detallesPrecioTotalIda  col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                                    <div class="">
+                                                                        <div class="timerMenuLabel labelMenuAsientos">Precio de Ida</div>
+                                                                        <div class="precioTotalPasajerosIda control-label timerMenuPrecios" style="text-align:center;"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="detallesPrecioTotalRegreso col-lg-2 col-xs-3 col-md-2 col-sm-3 ">
+                                                                    <div class="">
+                                                                       <div class="timerMenuLabel labelMenuAsientos">Precio de Regreso</div>
+                                                                       <div class="precioTotalPasajerosRegreso control-label timerMenuPrecios" style="text-align:center;"></div>
+                                                                   </div>
+                                                                </div>
+                                                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+                                                                    <div class="timerMenuLabel labelMenuAsientos" style="">Total</div>
+                                                                    <div class="precioTotalViaje  control-label timerMenuPrecios" style="text-align:left;"></div>
+                                                                </div>
+                                                                
+                                                                </div>
+                                                            </div>
+                                                        <div id="timerSesion3" class="col-xs-12 visible-xs-block" style="display: none; " >
+                                                            <div class="form-control" style="height: 152px; width: 100%; padding: 7px 26px;">
+                                                                <div class="row" style="">
+                                                                    
+                                                                    <div class="">
+                                                                        <div class="timerMenuLabel textLeft" style="text-transform: uppercase;" >Tiempo restante de compra</div>
+                                                                        <div class=''>
+                                                                            <div class="timerDiv">
+                                                                                <span class="glyphicon glyphicon-time" style="margin-right: 10px; margin-top: 5px;"></span>
+                                                                                <span class="timer"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row" style="margin-top: 10px;">
+                                                                    <div class="detallesPrecioTotalIda ">
+                                                                        <div class="timerMenuLabel col-xs-7 textLeft sinPadding">Precio de Ida</div>
+                                                                        <div class=" precioTotalPasajerosIda control-label timerMenuPrecios col-xs-4 textRight sinPadding"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row" style="">
+                                                                    <div class="detallesPrecioTotalRegreso ">
+                                                                        <div class="timerMenuLabel col-xs-7 textLeft sinPadding">Precio de Regreso</div>
+                                                                        <div class="precioTotalPasajerosRegreso control-label timerMenuPrecios col-xs-4 textRight sinPadding"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row" style="">
+                                                                    <div class="">
+                                                                        <div class=" timerMenuLabel col-xs-7 textLeft sinPadding" style="">Total</div>
+                                                                        <div class=" precioTotalViaje col-xs-4 textRight sinPadding control-label timerMenuPrecios"></div>
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                              
+                                                               
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-xs-12">
+                                                        <div class="esquemasViajeIda">
+                                                            <div style="margin-top: 10px;" class='row'>
+                                                                <div class="tituloCompra" style='text-align: left'>Viaje de Ida</div>
+                                                            </div>
+                                                            <div style="margin-top: 10px;">
+                                                                <div class=" no_padding_left">
+                                                                        <div class="tabbable">
+                                                                            <ul class="nav nav-tabs ul_salidas_Ida">
+                                                                              
+                                                                            </ul>
+                                                                            <div class="tab-content salidas_Ida form-control" style="height: 100%;">
+                                                                              
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="esquemasViajeRegreso">
+                                                            <div style="margin-top: 10px;" class='row'>
+                                                                <div class="tituloCompra" style='text-align: left'>Viaje de Regreso</div>
+                                                            </div>
+                                                            <div style="margin-top: 10px;">
+                                                                <div class="no_padding_left">
+                                                                    <div class="tabbable">
+                                                                        <ul class="nav nav-tabs ul_salidas_Regreso">
+                                                                          
+                                                                        </ul>
+                                                                        <div class="tab-content salidas_Regreso form-control" style="height: 100%;">
+                                                                          
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div id="p_dp" class="tab-pane">
+                                            <div class='resumenProvisionalCompra form-horizontal' style='text-align: center;margin-bottom: 15px;'></div>
+											
+                                            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 form-group" style="margin-left: 3px;">
+                                                <div class="timerMenuLabel labelMenuAsientos">Tiempo de compra</div>
+                                                <div class=''>
+                                                    <div class="timerDiv">
+                                                        <span class="glyphicon glyphicon-time" style="margin-right: 10px; margin-top: 5px;"></span>
+                                                        <span class="timer"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <form class="formPasajeroItem" action="{{ path('savePasajeros') }}" id='form4'></form>
+                                            </div>
+                                            <div class="form-group errorPasajero" style="display: none;">
+                                                <div class="alert alert-danger" role="alert"></div>
+                                            </div>
+                                        </div>
+                                        <div id="p_r" class="tab-pane">
+                                            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 form-group" style="margin-left: 3px;">
+                                                <div class="timerMenuLabel labelMenuAsientos">Tiempo de compra</div>
+                                                <div class=''>
+                                                    <div class="timerDiv">
+                                                        <span class="glyphicon glyphicon-time" style="margin-right: 10px; margin-top: 5px;"></span>
+                                                        <span class="timer"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <form id='form3' action="{{ path('saveCompra') }}">
+                                                    <div class="row">
+                                                        <div class="panel panel-default col-lg-8 col-sm-12 col-xs-12 col-md-6 resumenIda sinPadding">
+                                                            <div class="panel-heading" style="font-size: 20px; line-height: 17px;">
+                                                               Viaje de Ida
+                                                            </div>
+                                                            <div class="panel-body">
+                                                               <div class="est_fecha_hora_Ida">
+
+                                                                </div>
+                                                                <div class="divClasesResumenIda">
+                                                                   <div class="bus_asiento_Ida">
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                   <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                                                                       <a style="color: rgb(119, 119, 119);" data-target="#nom_pas_res_ida" data-toggle="collapse" class="collapsed">
+                                                                           <span class="sinPadding">Pasajeros</span>
+                                                                           <span style="color: rgb(181, 85, 85); margin-left: 10px; text-align: center; font-size: 11px;" class="expandGif sinPadding">
+
+                                                                           </span></a>
+
+                                                                      <div id="nom_pas_res_ida" class="cuadroPasajeros collapse in res_pasajeros_Ida"></div>
+                                                                   </div>
+                                                                    <div class="col-lg-8 col-sm-8 col-md-8 col-xs-12 resumenDetallesCompuestaIda" style="display: none">
+                                                                        <a style="color: rgb(119, 119, 119);" data-target="#trayectos_res_ida" data-toggle="collapse" class="collapsed">
+                                                                           <span class="sinPadding">Detalles de paradas</span>
+                                                                           <span style="color: rgb(181, 85, 85); margin-left: 10px; text-align: center; font-size: 11px;" class="expandParadasGif sinPadding">
+
+                                                                           </span></a>
+                                                                        <div id="trayectos_res_ida" class="collapse res_compuesta_Ida"></div>
+                                                                   </div>
+                                                                </div>
+                                                                <br>
+                                                                <div>
+                                                                   <div class="col-lg-6  col-sm-6 col-md-6 col-xs-12 sinPadding" style="margin-top: 38px; margin-left: 10px;">
+                                                                       <span class="labelprecioTotalResumenIda"></span>
+                                                                       <span class="res_total_Ida" style="margin-left: 10px;"></span>
+                                                                   </div>
+                                                                </div>
+                                                            </div>
+                                                         </div>
+                                                        <div class="panel panel-default col-lg-6 col-sm-12 col-xs-12 col-md-12 resumenRegreso sinPadding" style="display: none;">
+                                                            <div class="panel-heading" style="font-size: 20px; line-height: 17px;">
+                                                               Viaje de Regreso
+                                                            </div>
+                                                            <div class="panel-body">
+                                                               <div class="est_fecha_hora_Regreso">
+
+                                                                </div>
+                                                                <div class="divClasesResumenRegreso">
+                                                                   <div class="bus_asiento_Regreso">
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                   <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                                                                       <a style="color: rgb(119, 119, 119);" data-target="#nom_pas_res_reg" data-toggle="collapse" class="collapsed">
+                                                                           <span class="sinPadding">Pasajeros</span>
+                                                                           <span style="color: rgb(181, 85, 85); margin-left: 10px; text-align: center; font-size: 11px;" class="expandGif sinPadding">
+
+                                                                           </span></a>
+
+                                                                      <div id="nom_pas_res_reg" class="cuadroPasajeros collapse in res_pasajeros_Regreso"></div>
+                                                                   </div>
+                                                                    <div class="col-lg-8 col-sm-8 col-md-6 col-xs-12 resumenDetallesCompuestaRegreso" style="display: none">
+                                                                       <a style="color: rgb(119, 119, 119);" data-target="#trayectos_res_reg" data-toggle="collapse" class="collapsed">
+                                                                           <span class="sinPadding">Detalles de paradas</span>
+                                                                           <span style="color: rgb(181, 85, 85); margin-left: 10px; text-align: center; font-size: 11px;" class="expandParadasGif sinPadding">
+
+                                                                           </span></a>
+                                                                        <div id="trayectos_res_reg" class="collapse res_compuesta_Regreso"></div>
+                                                                   </div>
+                                                                </div>
+                                                                <br>
+                                                                <div>
+                                                                    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12 sinPadding" style="margin-top: 38px; margin-left: 10px;">
+                                                                        <span class="labelprecioTotalResumenRegreso">PRECIO DE VIAJE DE REGRESO</span>
+                                                                        <span class="res_total_Regreso" style="margin-left: 10px;"></span>
+                                                                    </div>
+                                                                </div>
+                                                             </div>
+                                                        </div>
+                                                        <div class="panel panel-default col-lg-8 col-sm-12 col-md-10 col-xs-12 sinPadding resumenFacturacion">
+                                                            <div class="panel-heading" style="font-size: 20px; line-height: 17px;">
+                                                               Facturaci&oacute;n
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div class='row' style="margin-left: 10px; margin-right:10px;">
+                                                                    <div class="small" style='color:#840000;'>
+                                                                        <p>Usted podr&aacute; recoger su factura en un t&eacute;rmino m&aacute;ximo de 5 d&iacute;as h&aacute;biles. Se le notificar&aacute; a su correo si puede recogerla antes de la fecha prevista.</p>
+                                                                    </div>
+                                                               </div>
+                                                                <div class='col-lg-6 col-sm-6 col-md-6'>
+                                                                    <div class="">Recoger factura en:</div>
+                                                                    <select class="estacionesFacturas form-control"></select>
+                                                                </div>
+                                                                <div class='precioTotalResumen col-lg-7 col-sm-7 col-md-7 subtituloTrayectos' style="margin-top: 10px;"> 
+                                                                    <span>IMPORTE TOTAL</span>
+                                                                    <span class="res_total" style="margin-left: 10px;"></span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <div class='col-lg-12 col-sm-12 col-md-12 col-xs-12'>
+                                                            <a href="" class="detallesSeguro linkSeleccionado linkApp"><span class='glyphicon glyphicon-info-sign' style='margin-right: 7px;'></span>Detalles del seguro de viaje</a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                   <div class="form-group" style='padding-top: 20px;'>
+                                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-bottom: 10px;">
+                                                            <div id="recaptchaCompra" class="g-recaptcha"></div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="wizard-footer">
+                                            <div class="pull-right">
+                                                
+                                                <a type="button" id="c_1" name="next" class="btnStep colorBtn btnStep-next btnStep-fill btnStep-warning linkSeleccionado btnStep-wd btnStep-sm disabled btn-block colorBtn" data-loading-text="Cargando..." style="display: none; text-align: center;">
+                                                     Continuar<span class="glyphicon glyphicon-forward" aria-hidden="true" style="margin-left: 10px; margin-right: 10px;  "></span>
+                                                </a>
+                                                <a type="button" id="p_2" name="finish" class="btnStep btnStep-finish btnStep-fill linkSeleccionado btnStep-warning btnStep-wd btnStep-sm btn-block colorBtn"  data-loading-text="Cargando..." style="display: block; text-align: center;">
+                                                     Pagar<span class="glyphicon glyphicon-step-forward" aria-hidden="true" style="margin-left: 10px;"></span>
+                                                </a>
+                                            </div>
+                                            <div class="pull-left" id='pull-left1'>
+                                                <a type="button" id="r_1" value="Retroceder" name="previous" class="btnStep colorBtn btnStep-previous btnStep-fill btnStep-warning linkSeleccionado btnStep-wd btnStep-sm btn-block colorBtn"  data-loading-text="..." style="text-align: center;display: none;">
+                                                    <span style="" aria-hidden="true" class="glyphicon glyphicon-backward"><span style="margin-left: 10px;">Atrás</span></span>
+                                                </a>
+                                            </div>
+                                            
+                                            <div class="clearfix"></div>
+                                    </div>
+                            
+                            </div>
+                            
+                        </div>
+                        
+                        <div id='pull-left2' class="col-lg-3 col-lg-offset-5 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-xs-10">
+                                <a type="button" id="nuevaBusqueda" class="btnStep btnStep-next btnStep-fill btnStep-warning linkSeleccionado btnStep-wd btnStep-sm btn-block" data-loading-text="Cargando..." style="text-align: center; text-transform: uppercase;">
+                                     <span class="glyphicon glyphicon-search" aria-hidden="true" style="margin-left: 10px; margin-right: 10px;  "></span> Nueva b&uacute;squeda
+                                </a>
+                            </div>
+                    </div>
+                 </div>
+                
+
+                </div>
+            </div> 
+            
+            </div>
+        </div>
+        
+        
+        <div class="restitem clearfix" id="contenidoErrorCompraDiv" style="display: none;">
+                 Error
+            </div> 
+    </div>
+    
+    <div class="row">
+           <div id="preview"></div>
+    </div>
+     
+    <div class="span2 iconosMapaBus" style="display: none;">                                            
+        <ul id="iconos">
+             <li>
+                 <figure class="icono asiento A libre">
+                     <img src="{{ asset('bundles/maya/images/bus/asientoClaseA.png') }}" alt="Clase A, asiento libre" title="Clase A, asiento libre"/>
+                     <div class="detalleAsiento"></div>
+                 </figure>
+             </li>
+             <li>
+                 <figure class="icono asiento A vendido">
+                     <img src="{{ asset('bundles/maya/images/bus/asientoClaseAVendido.png') }}" alt="Clase A, asiento vendido" title="Clase A, asiento vendido"/>
+                    <div class="detalleAsiento"></div>
+                 </figure>
+             </li>
+             <li>
+                 <figure class="icono asiento B libre">
+                     <img src="{{ asset('bundles/maya/images/bus/asientoClaseB.png') }}" alt="Clase B, asiento libre" title="Clase B, asiento libre"/>
+                     <div class="detalleAsiento"></div>
+                 </figure>
+             </li>
+             <li>
+                 <figure class="icono asiento B vendido">
+                     <img src="{{ asset('bundles/maya/images/bus/asientoClaseBVendido.png') }}" alt="Clase B, asiento vendido" title="Clase B, asiento vendido"/>
+                     <div class="detalleAsiento"></div>
+                 </figure>
+             </li>
+             <li>
+                 <figure class="icono asiento A bloqueado">
+                     <img src="{{ asset('bundles/maya/images/bus/bloqueado.png') }}" alt="Clase A, asiento bloqueado" title="Clase A, asiento bloqueado"/>
+                     <div class="detalleAsiento"></div>
+                 </figure>
+             </li>
+             <li>
+                 <figure class="icono asiento B bloqueado">
+                     <img src="{{ asset('bundles/maya/images/bus/bloqueado.png') }}" alt="Clase B, asiento bloqueado" title="Clase B, asiento bloqueado"/>
+                     <div class="detalleAsiento"></div>
+                 </figure>
+             </li>
+             <li>
+                 <figure class="icono senal PUERTA">
+                     <img src="{{ asset('bundles/maya/images/bus/puerta.png') }}" alt="Puerta de entrada y salida" title="Puerta de entrada y salida"/>
+                 </figure>  
+             </li>
+             <li>
+                 <figure class="icono senal CHOFER">
+                     <img src="{{ asset('bundles/maya/images/bus/chofer.png') }}" alt="Chofer" title="Chofer"/>
+                 </figure>
+             </li>
+         </ul>
+    </div>
+     
+    <div class="formPasajeroDetallado basePasajeroDetalle" style="display: none;">
+         <div class="panel panel-default col-lg-12 col-sm-12">
+             <div class="panel-body sinPadding">
+                 <div class="">
+                    <div class='tituloCompra numeroPasajero sinPadding' style="text-align: left;"></div>
+                </div>
+                 <div>
+                 <form class="form-horizontal">
+                        <div class="form-group">
+                          <div class="col-lg-3 col-sm-3" style="">
+                              <div class="col-lg-12"><label class="control-label sinPadding">Nombre y Apellidos</label></div>
+                              <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><input type="text" class="form-control pasaj_nombre_det" placeholder="Nombre y Apellidos" name="nom_det" required/></div>
+                              <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                          </div>
+                          <div class="col-lg-3 col-sm-3" style="">
+                             <div class="col-lg-12"><label class="control-label sinPadding">Nacionalidad</label></div>
+                             <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><select type="text" class="form-control pasaj_nac_det" name="nac_det" required></select></div>
+                             <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                          </div>
+                          <div class="col-lg-3 col-sm-3" style="">
+                              <div class="col-lg-12"><label class="control-label sinPadding">Tipo de documento</label></div>
+                              <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><select type="text" class="form-control pasaj_tipoDoc_det" name="td_det" required></select></div>
+                              <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                          </div>
+                          <div class="col-lg-3 col-sm-3" style=""> 
+                              <div class="col-lg-12"><label class="control-label sinPadding">No. de documento</label></div>
+                              <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><input type="text" class="form-control pasaj_numDoc_det" placeholder="No. documento" name="nd_det" required/></div>
+                              <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                          </div>
+                       </div>
+                        <div class="form-group">
+                           <div class="col-lg-3 col-xs-12 col-lg-offset-3 col-sm-3 col-sm-offset-3" style="">
+                               <div class="col-lg-12"><label class="control-label sinPadding">Fecha venc. documento</label></div>
+                               <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><input class="form-control pasaj_fechaVenc_det"  placeholder="Fecha venc. documento" name="fv_det" required/></div>
+                               <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                           </div>
+                           <div class="col-lg-3 col-xs-12 col-sm-3" style="">
+                               <div class="col-lg-12"><label class="control-label sinPadding">Fecha de nacimiento</label></div>
+                               <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><input type="text" class="form-control pasaj_fechaNac_det" placeholder="Fecha de nacimiento" name="fn_det" required></input></div>
+                               <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                           </div>
+                           <div class="col-lg-3 col-xs-12 col-sm-3 pasaj_col3row3" style="">
+                               <div class="col-lg-12"><label class="control-label sinPadding">Sexo</label></div>
+                               <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><select class="form-control pasaj_sexo_det" name="s_det" required></select></div>
+                               <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                           </div>
+                       </div>
+
+                    </form>
+                 </div>
+             </div>
+         </div>
+         
+     </div>
+    <div class="formPasajeroNoDetallado basePasajeroNoDetalle" style="display: none;">
+         <div class="panel panel-default col-lg-12 col-sm-12">
+             <div class="panel-body sinPadding">
+                <div class="">
+                    <div class='tituloCompra numeroPasajero' style="text-align: left;"></div>
+                </div>
+                 <div>
+                     <form class="form-horizontal">
+                    <div class="form-group">
+                       <div class="col-lg-3 col-sm-3">
+                           <div class="col-lg-12"><label class="control-label sinPadding">Nombre y Apellidos</label></div>
+                           <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><input type="text" class="form-control pasaj_nombre" placeholder="Nombre y Apellidos" name="nom" required/></div>
+                           <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                       </div>
+                       <div class="col-lg-3 col-sm-3" style="">
+                          <div class="col-lg-12"><label class="control-label sinPadding">Nacionalidad</label></div>
+                          <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><select type="text" class="form-control pasaj_nac" name="nac" required></select></div>
+                          <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                       </div>
+                       <div class="col-lg-3 col-sm-3" style="">
+                           <div class="col-lg-12"><label class="control-label sinPadding">Tipo de documento</label></div>
+                           <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><select type="text" class="form-control pasaj_tipoDoc" name="td" required></select></div>
+                           <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                       </div>
+                       <div class="col-lg-3 col-sm-3" style="">
+                           <div class="col-lg-12"><label class="control-label sinPadding">No. de documento</label></div>
+                           <div class="col-xs-11 col-lg-11" style="padding-left:0; padding-right:0; margin-bottom: 10px;"><input type="text" class="form-control pasaj_numDoc" placeholder="No. documento" name="nd" required/></div>
+                           <div class="col-xs-1 col-lg-1 aster" style="padding-left:1px; padding-right:0">*</div>
+                       </div>
+                    </div>
+                 </form>
+                 </div>
+                 
+             </div>
+          </div>
+        </div>
+
+    <input type='hidden' class='copyDatosDetalladosClientePasajero'>
+    <input type='hidden' class='existeCliente' value="0">
+    <input type='hidden' class='aceptoTerminos' value="0">
+    <div style="visibility: hidden"> <a href="#ancla" id="anclaCompra" class='linkApp'></a></div>
+    <div style="visibility: hidden"><a href="{{ path('_maya_pages',  { 'page': 'terminos' })}}" class='linkApp' id='loadTerm'></a></div>
+    <div style="visibility: hidden"><a href="{{ path('_maya_pages',  { 'page': 'seguros' })}}" class='linkApp' id='loadSeguro'></a></div>
+</section>
+<script type="text/javascript">
+    var autoStartCustomRecaptcha = function (){
+        customRecaptcha.funcionesAddOnload();
+    };
+    
+jQuery(function($) {
+    
+    buscarConexion.funcionesAddOnload();
+
+    $(window).resize(function(){
+        buscarConexion.styleResize();
+    });
+    
+    
+});
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=autoStartCustomRecaptcha&render=explicit" async defer></script>

@@ -1,0 +1,40 @@
+{% set galeriasBanner = getGaleriaByReferencia("BANNER") %}
+{% if galeriasBanner | length > 0 %}
+{% set galeriaBanner = galeriasBanner[0] %}
+{% set imagenes = galeriaBanner.imagenes %}	
+<div id="banner" class="parallax banner row hidden">
+<div id="customCarousel" class="carousel slide" data-interval="3000" data-ride="carousel" style="padding-top:0px;" > 
+  <ol class="carousel-indicators">
+    {% for imagen in imagenes %}
+        <li data-slide-to="{{ loop.index0 }}" data-target="#customCarousel" class="{{ loop.first ? 'active' : '' }}" ></li>
+    {% endfor %}
+  </ol>
+  <div class="carousel-inner">
+    {% for imagen in imagenes %}
+        <div class="item {{ loop.first ? 'active' : '' }}"> 
+          <img class="img-responsive img-thumbnail" style="width:100%" data-src="{{ path('ajaxDataImagen', { 'id': imagen.id }) }}" >
+          {% if imagen.nombre is not empty and imagen.descripcion is not empty %}
+          <div class="carousel-caption">
+                {% if imagen.nombre is not empty %}
+                  <h1>{{ imagen.nombre }}</h1>
+                {% endif %}
+                {% if imagen.descripcion is not empty %}
+                  <p>{{ imagen.descripcion }}</p>
+                {% endif %}
+          </div>  
+          {% endif %}
+        </div>
+    {% endfor %}
+  </div>
+  {% if imagenes | length > 1 %}  
+    <!-- Controls -->
+    <div class="carousel-control left" href="#customCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </div> 
+    <div class="carousel-control right" href="#customCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </div>
+  {% endif %}
+</div>
+</div>
+{% endif %}

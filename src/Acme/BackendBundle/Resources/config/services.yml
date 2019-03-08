@@ -1,0 +1,53 @@
+parameters:
+    
+    
+services:
+    
+    acme_redes_sociales:
+        class: Acme\BackendBundle\Services\RedesSocialesService
+        arguments: ["@service_container"]
+        
+    acme_twig.extension:
+        class: Acme\BackendBundle\Twig\Extension\TwigExtension
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }
+            
+    acme_scheduler.proxy:
+        class: Acme\BackendBundle\Scheduled\DelayedProxy
+        scope: prototype
+        calls:
+            - [setDoctrine, ["@doctrine"]]
+
+    acme_scheduler.scheduler:
+        class: Acme\BackendBundle\Scheduled\Scheduler
+        calls:
+            - [setContainer, ["@service_container"]]
+    
+    acme_backend_sincronizar:
+        class: Acme\BackendBundle\Services\SincronizacionService
+        arguments: ["@service_container"]
+    
+    acme_backend_mensaje:
+        class: Acme\BackendBundle\Services\CorreoService
+        arguments: ["@service_container"]
+        
+    acme_backend_conexion:
+        class: Acme\BackendBundle\Services\ConexionService
+        arguments: ["@service_container"]
+        
+    acme_backend.handler.login_success_handler:
+        class:  Acme\BackendBundle\Handler\LoginSuccessHandler
+        arguments:  ["@service_container"]
+#        tags:
+#            - { name: 'monolog.logger', channel: 'app' } 
+            
+    acme_backend.handler.login_failure_handler:
+        class:  Acme\BackendBundle\Handler\LoginFailureHandler
+        arguments:  [@router, @security.context, @logger, @service_container]
+#        tags:
+#            - { name: 'monolog.logger', channel: 'app' } 
+            
+    acme_backend.handler.logout_success_handler:
+        class:  Acme\BackendBundle\Handler\LogoutSuccessHandler
+        arguments:  [@router, @security.context, @logger]

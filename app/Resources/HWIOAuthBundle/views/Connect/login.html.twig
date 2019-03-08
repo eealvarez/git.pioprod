@@ -1,0 +1,18 @@
+<p class="help-block">
+    Usted puede iniciar sesión con las siguientes redes sociales.
+</p>
+{% if error is defined and error %}
+    <span>{{ error }}</span>
+{% endif %}
+{% for owner in hwi_oauth_resource_owners() %}
+    <!--[if lt IE 9]>
+        <a href="{{ hwi_oauth_login_url(owner) }}" class="{{ owner }}" style="border: 0px none;" title="Iniciar sesión con {{ owner }}.">
+            <img style="width: 150px; height: 50px; margin-top: 5px;" src="{{ asset('bundles/maya/images/redes/'~owner~'.jpg') }}" alt="{{ owner | upper }}" >
+        </a>
+    <![endif]-->
+    <div id="providerLogin" class="btn-group">
+        <a href="{{ hwi_oauth_login_url(owner) }}" class=" btn {{ owner }}" style="border: 0px none;" title="Iniciar sesión con {{ owner }}.">
+            <img style="width: 150px; height: 50px; margin-top: 5px;" src="{{ asset('bundles/maya/images/redes/'~owner~'.jpg') }}" alt="{{ owner | upper }}" >
+        </a>
+    </div>
+{% endfor %}

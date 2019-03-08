@@ -1,0 +1,50 @@
+{% extends "SonataAdminBundle:CRUD:list.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/backend/js/backendListUser.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/backend/js/backendChangePasword.js') }}" type="text/javascript"></script>
+    <script>	
+	$(document).ready(function(){
+		backendListUser.funcionesAddOnload();	
+	}); 
+    </script>
+{% endblock %}
+
+{% block actions %}
+    {{ parent() }}   
+    
+    <div class="sonata-actions btn-group">
+        <div class="btn sonata-action-element changePassword" data-href="{{ admin.generateUrl('changePassword') }}">
+            <i class="icon-wrench"></i>{{ "Cambiar contraseña" }}
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block list_table %}
+    {{ parent() }}
+    
+<div class="modal fade" id="usuarioModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                <h4 class="modal-title" id="myModalLabel">Cambiar Contraseña</h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-default clousePopUp" data-dismiss="modal">Close</a>
+                <a class="btn btn-primary aceptarPopUp">Aceptar</a>
+            </div>
+          </div>
+        </div>
+</div>
+{% endblock %} 
+

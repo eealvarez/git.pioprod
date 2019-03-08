@@ -1,0 +1,34 @@
+<div class="row" style="padding: 58px 10px 56px; background: #FFF" id='contentHome'>
+    {% set index = 1 %}
+    {% set galeriaHome = getGaleriaByReferencia("HOME") %}
+    {% if galeriaHome | length > 0 %}
+        {% for item in galeriaHome %}
+            {% if item.imagenes | length > 0 %}
+                {% set imagenes = item.imagenes %}
+                {% for imagen in imagenes %}
+                    <div class="col-lg-4 col-sm-8 col-md-4 col-xs-12" style="padding-bottom:40px;">
+                        <div class="textCenter">
+                            <img class="img-thumbnail img-circle" src="{{ 'data:image/jpg;base64,' ~ imagen.imagenPequena }}" alt="" style="height: 195px; width: 62%;"/>
+                        </div>
+                        <div class='textCenter'>
+                            <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="" style="width: 103px;"/>
+                            {{ imagen.nombre | nl2br }} 
+                            <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="" style="width: 103px;"/>
+                        </div>
+                        <div class='textCenter'>
+                             <p>{{ imagen.descripcion | nl2br }}</p>
+                        </div>
+                        <div class='textCenter'>
+                            <a role="button" href="{{ path('_maya_pages',  { 'page': 'services', 'ancla':index}) }}" class="btn btn-default" id='{{imagen.nombre}}'>Ver detalles »</a>
+                        </div>
+                    </div>
+                {% set index = index + 1 %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    
+    
+    
+</div>
+

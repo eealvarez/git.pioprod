@@ -1,0 +1,45 @@
+_maya_homepage:
+    path:     /
+    defaults: { _controller: MayaBundle:Static:home }
+    
+_maya_pages:
+    path:     /menu/{page}/{ancla}
+    defaults: { _controller: MayaBundle:Static:static, ancla: 1 }
+    
+services:
+    path:   /services
+    defaults: { _controller: MayaBundle:Service:getServices }  
+    
+ticket:
+    path:   /ticket
+    defaults: { _controller: MayaBundle:Ticket:getParametersTicket }
+
+########################################################################################################
+#                               Home - INI
+########################################################################################################
+
+acme_listados:
+   resource: "@MayaBundle/Controller/ListadosController.php"
+   type:     annotation
+   prefix:  /
+
+
+acme_mensaje:
+   resource: "@MayaBundle/Controller/MensajeController.php"
+   type:     annotation
+   prefix:  /
+
+acme_multiaction:
+   resource: "@MayaBundle/Controller/MultiActionController.php"
+   type:     annotation
+   prefix:  /
+
+acme_galeria:
+   resource: "@MayaBundle/Controller/GaleriaController.php"
+   type:     annotation
+   prefix:  /
+   
+acme_pasarela:
+   resource: "@MayaBundle/Controller/PasarelaController.php"
+   type:     annotation
+   prefix:  /

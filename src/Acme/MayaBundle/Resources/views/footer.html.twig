@@ -1,0 +1,36 @@
+<footer id="footer" class="footer">
+{#   
+    <p class="text-center">
+        <a href="#wrapper" class="gototop"><i class="fa fa-angle-double-up fa-2x"></i></a>
+    </p>
+#}
+    <div class="container">
+        
+        <div id="facebookDiv" class="fb-like center-block text-" style="width: 350px; display:block !important;"
+             data-href="{{ getParameter('facebook_page_url') }}" 
+             data-width="350" 
+             data-layout="standard" 
+             data-action="like" 
+             data-show-faces="true" 
+             data-share="true"
+             kid_directed_site = "true"
+             colorscheme="light"
+        >
+        </div>
+        
+        <BR>
+        <p>
+            &copy; 2015 Copyright Fuente del Norte<br>
+        </p>
+    </div>
+</footer>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.3&appId={{ getParameter('facebook_client_id') }}";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>

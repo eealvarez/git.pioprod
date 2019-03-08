@@ -1,0 +1,10 @@
+Buenas
+{{ compra.cliente.nombreApellidos }}, la empresa {{ getParameter('nombre_empresa_app') }} le informa que puede pasar a recoger su 
+factura de la orden de compra {{ compra.id }} en la estación {{ compra.estacionFactura.nombre }}, 
+en la dirección {{ compra.estacionFactura.direccion }}. Si desea puede ponerse
+en contanto con nuestra oficina en los teléfonos {{ compra.estacionFactura.listaTelefonos }}.
+
+Atentamente
+{{ getParameter('nombre_empresa_app') }}
+
+Atención al cliente: {{ getParameter('telefono_empresa_app') }}

@@ -1,0 +1,126 @@
+services:
+    
+    sonata.admin.compra:
+        class: Acme\BackendBundle\Admin\CompraAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Operativos, label: "Compras" }
+        arguments:
+            - ~
+            - Acme\MayaBundle\Entity\Compra
+            - ~
+        calls:
+            - [ setTranslationDomain, [Acme\BackendBundle]]
+            
+    sonata.admin.scheduler:
+        class: Acme\BackendBundle\Admin\JobAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Scheduling, label: "Jobs" }
+        arguments:
+            - ~
+            - Acme\BackendBundle\Entity\Job
+            - SonataAdminBundle:CRUD
+   
+    sonata.admin.estacion:
+        class: Acme\BackendBundle\Admin\EstacionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Clasificadores", label: "Estaciones" }
+        arguments:
+            - ~
+            - Acme\MayaBundle\Entity\Estacion
+            - ~
+        calls:
+            - [ setTranslationDomain, [Acme\BackendBundle]]
+            
+    sonata.admin.usuario:
+        class: Acme\BackendBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Usuarios y Roles", label: "Usuarios" }
+        arguments:
+            - ~
+            - Acme\BackendBundle\Entity\User
+            - 'BackendBundle:UserCRUD'
+        calls:
+            - [ setTranslationDomain, [Acme\BackendBundle]]
+            - [ setTemplate, [edit, BackendBundle:UserAdmin:edit.html.twig]]
+            - [ setTemplate, [list, BackendBundle:UserAdmin:list.html.twig]]
+            
+    sonata.admin.intenerarios.simples.ciclico:
+        class: Acme\BackendBundle\Admin\ItinerarioSimpleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Clasificadores", label: "Itinerarios Simples Ciclicos" }
+        arguments:
+            - ~
+            - Acme\MayaBundle\Entity\ItinerarioSimple
+            - ~
+        calls:
+            - [ setTranslationDomain, [AcmeMayaBundle]]
+    
+    sonata.admin.intenerarios.simples.especial:
+        class: Acme\BackendBundle\Admin\ItinerarioEspecialAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Clasificadores", label: "Itinerarios Simples Especial" }
+        arguments:
+            - ~
+            - Acme\MayaBundle\Entity\ItinerarioEspecial
+            - ~
+        calls:
+            - [ setTranslationDomain, [AcmeMayaBundle]]
+            
+    sonata.admin.intenerarios.compuestas:
+        class: Acme\BackendBundle\Admin\ItinerarioCompuestoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Clasificadores", label: "Itinerarios Compuestos Ciclicos" }
+        arguments:
+            - ~
+            - Acme\MayaBundle\Entity\ItinerarioCompuesto
+            - 'BackendBundle:ItinerarioCompuestoCRUD'
+        calls:
+            - [ setTranslationDomain, [AcmeMayaBundle]]
+            - [ setTemplate, [edit, BackendBundle:ItinerarioCompuesto:edit.html.twig]]
+            
+    sonata.admin.conexiones.simples:
+        class: Acme\BackendBundle\Admin\ConexionSimpleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Clasificadores", label: "Conexiones Simples" }
+        arguments:
+            - ~
+            - Acme\MayaBundle\Entity\ConexionSimple
+            - ~
+        calls:
+            - [ setTranslationDomain, [AcmeMayaBundle]]
+
+    sonata.admin.conexiones.compuestas:
+        class: Acme\BackendBundle\Admin\ConexionCompuestaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Clasificadores", label: "Conexiones Compuestas" }
+        arguments:
+            - ~
+            - Acme\MayaBundle\Entity\ConexionCompuesta
+            - ~
+        calls:
+            - [ setTranslationDomain, [AcmeMayaBundle]]
+
+    sonata.admin.galerias:
+        class: Acme\BackendBundle\Admin\GaleriaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Galerias", label: "Galerias" }
+        arguments:
+            - ~
+            - Acme\MayaBundle\Entity\Galeria
+            - ~
+        calls:
+            - [ setTranslationDomain, [AcmeMayaBundle]]
+            
+    sonata.admin.galeria.imagenes:
+        class: Acme\BackendBundle\Admin\ImagenAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Galerias", label: "Imágenes" }
+        arguments:
+            - ~
+            - Acme\MayaBundle\Entity\Imagen
+            - 'BackendBundle:ImagenCRUD'
+        calls:
+            - [ setTranslationDomain, [AcmeMayaBundle]]
+
+
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        {% block title %}
+            <title>ADMIN - PORTAL</title>
+        {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="javiermarti84@gmail.com">
+        
+        {% block stylesheets %}
+            {{ include("::cssLogin.html.twig") }}
+        {% endblock %}
+        
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 container colorBase">                         
+                    
+                    <div class="row">
+                        <header class="col-md-12">                                            
+                            <img class="hidden-xs" src="{{ asset('images/logo/fdn.png') }}" alt=""/>                            
+                        </header> 
+                    </div> 
+                    
+                    {% for type, messages in app.session.flashbag.all() %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-{{ type }}">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                    {% endfor %}
+
+                    <div>
+                        {% block fos_user_content %}
+                        {% endblock fos_user_content %}
+                    </div>
+                                
+                    <div>
+                        {% block content %}
+                        {% endblock content %}
+                    </div>
+                   
+                    <footer>               
+                        <p> {{ getParameter('nombre_empresa_app') }} </p>          
+                    </footer>
+            </div>
+            </div>            
+        </div>
+        
+        
+        {% block javascripts %}
+            {{ include("::jsLogin.html.twig") }}
+        {% endblock javascripts %}
+        
+    </body>
+</html>

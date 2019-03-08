@@ -1,0 +1,22 @@
+########################################################################################################
+#                               MultiAction - INI
+########################################################################################################
+acme_multiAction:
+   resource: "@BackendBundle/Controller/MultiActionController.php"
+   type:     annotation
+   prefix:  /
+
+acme_secure:
+   resource: "@BackendBundle/Controller/SecuredController.php"
+   type:     annotation
+   prefix:  /
+   
+acme_admin_compra:
+   resource: "@BackendBundle/Controller/CompraController.php"
+   type:     annotation
+   prefix:  /
+   
+acme_admin_reporte:
+   resource: "@BackendBundle/Controller/ReporteController.php"
+   type:     annotation
+   prefix:  /

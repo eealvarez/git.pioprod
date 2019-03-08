@@ -1,0 +1,10 @@
+<input type="hidden" value="{{ mensajeServidor }}" id="mensajeServidor" name="mensajeServidor" />
+{% if data is defined  %}
+    <input type="hidden" value="{{ data }}" id="data" name="data" />	
+{% endif %}
+{% if info is defined  %}
+    <input type="hidden" value="{{ info }}" id="info" name="info" />	
+{% endif %}
+{% if autoPrint is defined  %}
+    <input type="hidden" value="{{ autoPrint }}" id="autoPrint" name="autoPrint" />	
+{% endif %}

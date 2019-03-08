@@ -1,0 +1,32 @@
+<form id="compraForm" class="form-horizontal">
+ 
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Id</label>
+            <input type="text" class="form-control" readonly disabled value="{{ compra.id }}">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Estado</label>
+            <input type="text" class="form-control" readonly disabled value="{{ compra.estado.nombre }}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Fecha</label>
+            <input type="text" class="form-control" readonly disabled value="{{ compra.fecha | date('d/m/Y H:i:s') }}">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Precio</label>
+            <input type="text" class="form-control" readonly disabled value="{{ compra.precio }}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <label>Boletos</label>
+            <input type="text" class="form-control" readonly disabled value="{{ compra.listaIdExternoBoletos | join(', ') }}">
+        </div>
+    </div>
+    
+</form>

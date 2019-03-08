@@ -1,0 +1,28 @@
+/*!
+ * Custom Theme IE
+ * Copyright 2015
+ * Licensed xxx
+ */
+.restmenuwrap{
+    border : 1px solid #eee;
+}
+
+.oficinasImg {
+    height: 228px;
+    width: auto;
+    background-image: url(../images/oficinasImg.jpg);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.panel-default > .stylePanelHeading, 
+.infoEncomienda .headingPanelEncomienda, 
+.infoAboutUs .headingPanelAbouUs, 
+.infoService .headingPanelService{
+   background-image: none;
+   background-color: #b55555;
+   border: none;
+   background-repeat: repeat;
+   background-position: 0 0;
+   filter: none !important;
+}

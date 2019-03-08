@@ -1,0 +1,36 @@
+{% extends "BackendBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block title %}
+    <title>PORTAL - AUTENTICACIÓN</title>
+{% endblock %}
+            
+{% block fos_user_content %}
+
+<form class="form-signin" action="{{ path("custom_fos_user_security_check") }}" method="post">
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />    
+    <h2 class="form-signin-heading">Control de Acceso</h2>
+    
+    <div class="form-group">
+        <label for="username">Usuario:</label>
+        <input class="form-control input-block-level" type="text" id="username" name="_username" value="{{ last_username }}" required="required" autofocus placeholder="Entre su usuario..."/>
+    </div>
+    
+    <div class="form-group">
+        <label for="password">Clave:</label>
+        <input class="form-control input-block-level" type="password" id="password" name="_password" required="required" placeholder="Entre su contraseña..."/>
+    </div>
+    
+    {% if error %}
+        <div class="alert alert-error">{{ error.messageKey | trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    
+     <div class="form-group">
+        <input class="btn btn-large btn-primary" type="submit" id="_submit" name="_submit" value="Entrar" />
+     </div>
+    
+</form>
+    
+{% endblock fos_user_content %}

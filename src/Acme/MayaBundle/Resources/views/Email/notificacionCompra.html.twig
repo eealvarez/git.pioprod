@@ -1,0 +1,29 @@
+Buenas {{ compra.cliente.nombreApellidos | title }}
+Usted ha efectuado una compra el dia {{ compra.fecha | date('d/m/Y h:i A') }} a través de nuestro portal de internet {{ getParameter('url_empresa_app') }} por un valor total de Q {{ compra.precio }}. 
+Los detalles de la compra son los siguientes:
+{% for pasajero in compra.listaPasajeros %}
+--------------------------------------------------
+Pasajero Nro {{ loop.index }}
+Nacionalidad: {{ pasajero.nacionalidad.nombre }}
+Documento: {{ pasajero.tipoDocumento.tipo ~ ' ' ~ pasajero.valorDocumento }}
+Nombre Completo: {{ pasajero.nombreApellidos }}
+{% for paquete in pasajero.listaPaquetes %}
+{% for boleto in paquete.listaBoletos %}
+Fecha Viaje: {{ boleto.conexion.fechaViaje | date('d/m/Y h:i A') }}
+Asiento: {{ boleto.asientoBus.numero }}
+Origen: {{ boleto.subeEn.aliasNombre }}
+Destino: {{ boleto.bajaEn.aliasNombre }}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+
+En el correo está adjunto un documento en formato PDF con los boletos de cada trayecto. 
+Usted debe imprimirlos y presentarlos en el momento de abordar el bus.
+
+La factura de la compra la podrá recoger después de 5 días hábiles en la oficina {{ compra.estacionFactura.nombreDepartamento }}, 
+en la dirección {{ compra.estacionFactura.direccion }}. Cualquier duda puede llamar a los teléfonos {{ compra.estacionFactura.listaTelefonos }}.
+La clave para recoger su factura es: {{ compra.clave }}.
+
+Gracias por su compra.
+Atentamente
+Fuente del Norte

@@ -1,0 +1,45 @@
+# This file is a "template" of what your parameters.yml file should look like
+parameters:
+    database_driver: pdo_sqlsrv
+    database_type: sqlserver
+    database_host: 127.0.0.1
+    database_port: 1433
+    database_name: PORTAL.PIONERA
+    database_user: sa
+    database_password: 'sa123**'
+    mailer_transport: gmail
+    mailer_host: ~
+    mailer_user: portal.fuentedelnorte.gt@gmail.com
+    mailer_password: 'system2050**'
+    locale: es
+    secret: 376d145e2d88f3ee4d6adcd29ffc5875
+    debug_toolbar: true
+    debug_redirects: false
+    use_assetic_controller: true
+    version: 1
+    days_credentials_expire: 60
+    compra_en_linea : false
+    recaptcha_public_key: 6LckfgUTAAAAAOpIRjypRdiQkSR4xMBlKaRf77FR
+    recaptcha_private_key: 6LckfgUTAAAAAJzgrPkycuAaqF8_COY1vZ5rkTzq
+    message_mailers: 'pablomendozafdn@hotmail.com,pionerafdn@hotmail.com,edwinmendoza58@gmail.com,sistemasfdn@gmail.com,lgironclaseoro@hotmail.com,hssandovalfdn@gmail.com,info@transportesfuentedelnorte.com'
+    facebook_client_id : 1597157600541442
+    facebook_client_secret : cb921c1bf7ac8e12350f8fef3ca0c8e5
+    facebook_scope : email,basic_info,publish_actions
+    facebook_page_url : https://www.facebook.com/TRANSPORTESFUENTEDELNORTE?ref=hl
+    twitter_client_id : CO1kx2DdkWRd9noo4ChNAUfFF
+    twitter_client_secret : qoOW1nXsjZUyZWEsFJH5GOQnO2t6K9BqndfRw4NSKbQXrcajjF
+    google_client_id : 780891271126-3m6ljkh0e0kq4mkvf4meivskh3nk2smk.apps.googleusercontent.com
+    google_client_secret : 8onfo0_MkTJuG13IxfRRTamW
+    id_empresa_app: 2
+    nombre_empresa_app: 'Fuente del Norte la Pionera S.A.'
+    telefonos_empresa_app: '(502)79477070, (502)79477186'
+    url_empresa_app: 'http://transportesfuentedelnorte.com/'
+    direccion_empresa_app: 'Avenida Simón Bolivar, Morales, Izabal.'
+    
+    internal_sys_url : 'https://autobusesfuentedelnorte.com/'
+    internal_sys_pref : 'internal/integrations/portal/test/'
+    internal_sys_clave_interna : 'pf12 2,21-32kdz9¡-3(r)=dftenfrsadw3d8dk'
+    
+    pasarela_init_url : 'http://transportesfuentedelnorte.com/pasarela/page.html'
+    pasarela_success_url : 'http://transportesfuentedelnorte.com/pasarela/success.html'
+    pasarela_failed_url : 'http://transportesfuentedelnorte.com/pasarela/failed.html'

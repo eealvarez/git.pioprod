@@ -1,0 +1,71 @@
+<section class="aboutus" id="aboutus">
+<div class="container">
+    <div class="heading text-center">
+        <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+        <h2>Historia</h2>
+	<img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+    </div>
+    <div class="restmenuwrap">
+            <h3 class="maincat notopmarg text-center">¿QUIENES SOMOS?</h3>
+            <div class="maincat notopmarg">
+                <div class="row infoAboutUs">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="">
+                            <div class="panel-body"> 
+
+                                {% set galeriasHistorias = getGaleriaByReferencia("HISTORIA") %}
+                                {% if galeriasHistorias | length > 0 %}
+                                {% set galeriaHistoria = galeriasHistorias[0] %}
+                                <div class="row">
+                                    <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+
+                                            <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-top: 20px;">
+                                            {% set imagenes = galeriaHistoria.imagenes %}
+                                            {% if imagenes | length > 0%}
+                                                {% for imagen in imagenes %}
+                                                    <a class="fancybox linkLoadImage" title="{{ imagen.descripcion }}" rel="{{'gallery_' ~ galeriaHistoria.id}}" href="{{ path('ajaxDataImagen', { 'id': imagen.id, 'full' : true }) }}" data-idimagen="{{ imagen.id }}" >
+                                                    {% if loop.first %}
+                                                        <img class="img-thumbnail" src="{{ 'data:image/jpg;base64,' ~ imagen.imagenNormal }}" />
+                                                    {% endif %}
+                                                    </a>
+                                                {% endfor %}
+                                            {% else %}
+                                                <img style="width: 254px;" src="{{ asset('bundles/maya/images/no-imagen.jpg') }}" />
+                                            {% endif %}
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">    
+                                            <div class="caption">
+                                                <h3>{{ galeriaHistoria.nombre | upper }}</h3>
+                                                <p class="text-justify">{{ galeriaHistoria.descripcion | nl2br }}</p> 
+                                                <p>
+                                                    <a class="btn btn-primary btn-sm historyBtn" href="{{ path('ajaxGetHistoria') }}" role="button" data-toggle="modal" data-target="#historiaFull" data-loading-text="Cargando historia...">
+                                                        <span class="glyphicon glyphicon-th-list"></span>
+                                                        Leer más
+                                                    </a>
+                                                </p>
+                                            </div>
+                                            </div>
+                                            </div>
+
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+    
+</div>
+</section>
+
+<script type="text/javascript">
+jQuery(function($) {
+   historia.funcionesAddOnload();
+});
+</script>
+

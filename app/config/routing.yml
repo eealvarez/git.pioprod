@@ -1,0 +1,48 @@
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /secured/connect
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /secured/login
+
+hwi_oauth_logout:
+    path:   /secured/logout
+    
+facebook_login:
+    pattern: /secured/login/check-facebook
+    
+twitter_login:
+    pattern: /secured/login/check-twitter
+    
+google_login:
+    pattern: /secured/login/check-google
+     
+custom_fos_user_security_login:
+    path:      /admin/login
+    defaults:  { _controller: FOSUserBundle:Security:login }
+        
+custom_fos_user_security_check:
+    path:      /admin/login_check
+    methods:  [POST]
+    
+custom_fos_user_security_logout:
+    path:      /admin/logout
+    
+maya:
+    resource: "@MayaBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+backend:
+    resource: "@BackendBundle/Resources/config/routing.yml"
+    prefix:   /
+
+sonata:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+    
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
+

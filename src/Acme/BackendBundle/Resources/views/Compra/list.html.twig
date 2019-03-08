@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+        
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ getParameter('nombre_empresa_app') }}</title>
+        
+        <link href="{{ asset('bundles/backend/css/reset.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('bundles/backend/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('bundles/backend/css/bootstrap-dialog.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('bundles/backend/css/datepicker.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('bundles/backend/css/jquery.bootgrid.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('bundles/backend/css/compra.css') }}" rel="stylesheet" type="text/css" />
+             
+        {% block stylesheets %}{% endblock %}
+         
+    </head>
+    <body>
+         
+        {% block body %}
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    
+                    <h2>Gestión de Compras</h2>
+                    
+                    <table id="grid" data-ajax="true" data-url="{{ path('admin-compra-listar-paginado') }}" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-column-id="id" data-type="numeric" data-identifier="true">ID</th>
+                                <th data-column-id="estacionFactura">Estación</th>
+                                <th data-column-id="fecha">Fecha</th>
+                                <th data-column-id="precio">Precio</th>
+                                <th data-column-id="estadoCompra">Estado Compra</th>
+                                <th data-column-id="cliente">Cliente</th>
+                                <th data-column-id="factura">Factura</th>
+                                <th data-column-id="estadoFactura">Estado Factura</th>
+                                <th data-column-id="commands" data-formatter="commands">Acciones</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    
+                    <input id="pathConsultarCompra" type="hidden" value="{{ path("admin-compra-consultar") }}">
+                    <input id="pathViewFactura" type="hidden" value="{{ path("reporte-factura") }}">
+                    <input id="pathFacturar" type="hidden" value="{{ path("admin-compra-facturar") }}">
+                    <input id="pathEnviarFactura" type="hidden" value="{{ path("admin-enviar-facturar") }}">
+                    <input id="pathRecibirFactura" type="hidden" value="{{ path("admin-recibir-facturar") }}">
+                    <input id="pathEntregarFactura" type="hidden" value="{{ path("admin-entregar-facturar") }}">
+                    <input id="pathEnviarAllFacturas" type="hidden" value="{{ path("admin-enviar-all-facturas") }}">
+                    <input id="pathRecibirAllFacturas" type="hidden" value="{{ path("admin-recibir-all-facturas") }}">
+                    
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}
+        
+        {% block javascripts %}
+            
+            <script src="{{ asset('bundles/backend/js/modernizr.js') }}"></script>
+            <script src="{{ asset('bundles/backend/js/jquery.js') }}"></script>
+            <script src="{{ asset('bundles/backend/js/jquery.form-3.45.0.js') }}"></script>
+            <script src="{{ asset('bundles/backend/js/bootstrap.js') }}"></script>
+            <script src="{{ asset('bundles/backend/js/bootstrap-datepicker.js') }}"></script>
+            <script src="{{ asset('bundles/backend/js/jquery.validate.js') }}"></script>
+            <script src="{{ asset('bundles/backend/js/bootstrap-dialog.js') }}"></script>
+            <script src="{{ asset('bundles/backend/js/jquery.bootgrid.js') }}"></script>
+            <script src="{{ asset('bundles/maya/js/app/code/core.js') }}"></script>
+            <script src="{{ asset('bundles/backend/js/compra.js') }}"></script>
+            
+        {% endblock %}
+       
+    </body>
+</html>

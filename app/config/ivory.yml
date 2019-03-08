@@ -1,0 +1,26 @@
+#----------------------------------------------------------
+# CONFIGURACIONES DE IVORY
+#----------------------------------------------------------
+
+ivory_google_map:
+    api:
+        libraries:            [ "places" ]
+    map:
+        async:                true
+        auto_zoom:            false
+        type:                 "roadmap"
+        zoom:                 18
+        width:                "100%"
+        height:               "400px"
+        # Custom map options
+        # By default, there is no map options
+        map_options:
+            disableDefaultUI: false
+            disableDoubleClickZoom: true
+
+        # Custom stylesheet options
+        # By default, there is no stylesheet options except width & height
+        stylesheet_options:
+            border: "1px solid #000"
+            background-color: "#fff"
+        language:             es

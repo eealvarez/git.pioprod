@@ -1,0 +1,37 @@
+#----------------------------------------------------------
+# CONFIGURACIONES DE SONATA
+#----------------------------------------------------------
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+
+        sonata.block.service.text: ~
+        sonata.block.service.action: ~
+        sonata.block.service.rss: ~
+        
+sonata_admin:
+    title: 'PORTAL'
+#    title_logo: /bundles/backend/logotipo.png
+    templates:
+        layout: BackendBundle:Sonata:standard_layout.html.twig
+#        ajax: SonataAdminBundle::ajax_layout.html.twig
+#        list: SonataAdminBundle:CRUD:list.html.twig
+#        show: SonataAdminBundle:CRUD:show.html.twig
+#        edit: SonataAdminBundle:CRUD:edit.html.twig
+        dashboard: BackendBundle:Sonata:dashboard.html.twig
+    dashboard:
+        blocks:
+            -
+                position: left
+                type: sonata.admin.block.admin_list
+            -
+                position: right
+                type: sonata.block.service.text
+                settings:
+                    content: >
+                        <h2>Backend del sistema</h2>
+                        <p>Descripción del backend....</p>
+

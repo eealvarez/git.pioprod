@@ -1,0 +1,58 @@
+<section class="contact" id="contact">
+    <div class="container">
+        <div class="heading">
+            <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+            <h2>Contáctenos</h2>
+            <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+            <h3></h3>
+        </div>
+        <div class="restmenuwrap">
+            <h3 class="maincat notopmarg text-center">SERVICIO AL CLIENTE</h3>
+            <div class="maincat notopmarg">
+                <div class="row" style="padding-top: 20px;">
+                <div class="col-lg-4 col-sm-5 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading stylePanelHeading">
+                        <h3 class='subtituloOficinas'>Atenci&oacute;n al cliente</h3>
+                    </div>
+                    <div class="panel-body sinPadding">
+                        <div class="sep"></div>
+                        <div class="oficinasImg"></div>
+                        <div class="sep"></div>
+                        <address style="padding: 10px;">
+                            <span class="glyphicon glyphicon-tag"></span>&nbsp;<strong>{{ getParameter('nombre_empresa_app') }}</strong><br>
+                            {% set direcciones = getParameter('direccion_empresa_app') | split(';') %}
+                            {% for item in direcciones %}
+                                {% if loop.first %}
+                                    <span class="glyphicon glyphicon-globe"></span>&nbsp;
+                                {% endif %}
+                                {{ item | trim }}<br>
+                            {% endfor %}
+                            <span class="glyphicon glyphicon-phone-alt"></span> {{ getParameter('telefono_empresa_app') }}<br>
+                            <span class="glyphicon glyphicon-link"></span> {{ getParameter('url_empresa_app') }}<br>
+                        </address>
+                    </div>
+                </div>
+                </div>
+                <div class="col-lg-8 col-sm-7 col-md-8">
+                    <div class="panel panel-default">
+                    <div class="panel-heading stylePanelHeading">
+                        <h3 class='subtituloOficinas'>
+                            <span class="glyphicon glyphicon-envelope"></span>
+                            Enviar Mensaje
+                        </h3>
+                    </div>
+                        <div class="panel-body">
+                            <div id="mensajeContainer">
+                                {{ render(controller('MayaBundle:Mensaje:enviarMensaje')) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+<BR><BR><BR>

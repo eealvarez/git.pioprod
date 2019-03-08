@@ -1,0 +1,77 @@
+{% set mapDepartamentos = getOficinasActivasByDepartamento() %}
+<section class="oficinas" id="oficinas">    
+    <div class="container">
+        <div class="heading">
+            <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+            <h2>Oficinas Principales</h2>
+            <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+            <h3></h3>
+        </div>
+        <div class="restmenuwrap">
+            <h3 class="maincat notopmarg text-center">OFICINAS POR DEPARTAMENTOS</h3>
+            <div class="maincat notopmarg">
+                <div class="row infoOficinas">
+                <div class="">
+                    <div class="panel-body">
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                        <div class="panel-group" id="dptAccordion">
+                            {% for nombre, estaciones in mapDepartamentos %}
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <span class="glyphicon glyphicon-tags"></span>
+                                        <a class="collapsed text-uppercase" data-toggle="collapse" data-parent="#dptAccordion" href="#dptCollapse_{{ loop.index }}">
+                                            &nbsp; {{ nombre }}    
+                                            <span class="badge pull-right" style="margin-left: 5px;">{{ estaciones | length }}</span>
+                                            <span class="glyphicon glyphicon-arrow-right pull-right"></span>
+                                            <span class="glyphicon glyphicon-arrow-down pull-right"></span>
+                                        </a>
+                                      </h4>
+                                    </div>
+                                    <div id="dptCollapse_{{ loop.index }}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="list-group">
+                                            {% for item in estaciones %}    
+                                                <div class="list-group-item">
+                                                    <address class="list-group-item-text">
+                                                        <span class="glyphicon glyphicon-tag"></span> {{ item.nombre | upper }} ({{ item.alias }})<BR>
+                                                        <span class="glyphicon glyphicon-globe"></span><em> {{ item.direccion | nl2br }}</em>. 
+                                                        {% if item.listaTelefonos is not empty %}
+                                                            <BR><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;<em>{{ item.listaTelefonos }}</em>. 
+                                                        {% endif %}
+                                                        <BR>
+                                                        {% if item.tieneMap %}
+                                                            <span class="glyphicon glyphicon-map-marker"></span>
+                                                            <i><a class="detalleEstacion" href="{{ path('ajaxGetInfoEstacion', { 'id' : item.id } ) }}" data-loading-text="Cargando información..." >Ver mapa</a></i>
+                                                        {% endif %}
+                                                    </address>
+                                                </div>
+                                            {% endfor %} 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        </div>
+                        <div id="mapGuatemata" class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</section>
+
+
+<script>
+    jQuery(function($) {
+        oficinas.createMapGuatemala();
+        oficinas.funcionesAddOnload();
+    });
+</script>

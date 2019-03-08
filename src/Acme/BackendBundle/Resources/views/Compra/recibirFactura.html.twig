@@ -1,0 +1,9 @@
+<form id="facturaForm" class="form-horizontal" action="{{ path(route) }}" method="post">
+    {{ form_errors(form) }}
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            ¿Está seguro que recibió la factura {{ compra.factura.info1 }}?
+        </div>
+    </div>
+    {{ form_rest(form) }}
+</form>

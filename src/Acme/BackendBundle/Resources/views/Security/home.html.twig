@@ -1,0 +1,18 @@
+{% set user = app.user %}
+{{ dump(user) }}
+<a type="button" href="{{ path('hwi_oauth_logout') }}">Salir</a><br>
+Datos del Usuario<BR>
+Proveedor: {{ user.provider }}<BR>
+Identificador: {{ user.providerId }}<BR>
+Nickname: {{ user.nickname }}<BR>
+Realname: {{ user.realname }}<BR>
+Email: {{ user.email }}<BR>
+Picture:<BR>
+<img src="{{ user.profilePicture }}" alt=""/>
+
+{% if user.provider is sameas('facebook') %}
+<BR>
+<a type="button" href="{{ path('secured_facebook_publicar') }}">Publicar</a><br>
+    
+
+{% endif %}

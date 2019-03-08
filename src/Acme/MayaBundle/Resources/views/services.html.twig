@@ -1,0 +1,197 @@
+<section class="specialties" id="specialties">
+    <div id="ancla1"></div>
+    <div class="container">
+        <div class="heading text-center">
+            <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+            <h2>Servicios</h2>
+            <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+            <h3>Estamos en la mejor disposición de brindarle un servicio con calidad y elegancia a un cómodo precio. Nuestra experiencia en transporte de pasajeros es por mas de 50 años. La calidad de nuestro servicio es el resultado de su preferencia.</h3>
+        </div>
+       
+       <div class="restmenuwrap">
+            <h3 class="maincat notopmarg text-center">TRANSPORTE DE PASAJEROS</h3>
+            <div class="maincat notopmarg">
+                {% set galeriaBoletos = getGaleriaByReferencia("SERVICIO-BOLETO") %}
+                {% if galeriaBoletos | length > 0 %}		
+                <div class="row infoService">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="">
+                        <div class="panel-body">
+
+                            {% for item in galeriaBoletos %}
+                                {% if item.imagenes | length > 0 %}
+
+                                    {% set imagenes = item.imagenes %}
+                                    {% for imagen in imagenes %}
+                                        {% if loop.first %}
+                                            <div class="row media">
+                                            <div class="media-left col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                                        {% endif %}
+
+                                        <a class="fancybox linkLoadImage" title="{{ imagen.descripcion }}" rel="{{'gallery_' ~ item.id}}" href="{{ path('ajaxDataImagen', { 'id': imagen.id, 'full' : true }) }}" data-idimagen="{{ imagen.id }}" >
+                                        {% if loop.first %}
+                                            <img class="media-object {{ loop.parent.loop.first ? 'first' : '' }}" src="{{ 'data:image/jpg;base64,' ~ imagen.imagenPequena }}" title="Ver galeria de fotos"/>
+                                        {% endif %}
+                                        </a>    
+
+                                        {% if loop.first %}
+                                            </div>
+                                            <div class="media-body col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                                                <h4 class="media-heading">{{ item.nombre | upper }}</h4>
+                                                <p>{{ item.descripcion | nl2br }}</p>
+                                            </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                {% else %}
+                                    <div class="media">
+                                    <div class="media-left col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                                        <img style="width: 254px;" class="media-object {{ loop.first ? 'first' : '' }}" src="{{ asset('bundles/maya/images/no-imagen.jpg') }}" />
+                                    </div>
+                                    <div class="media-body col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                                        <h4 class="media-heading">{{ item.nombre | upper }}</h4>
+                                        <p>{{ item.descripcion | nl2br }}</p>
+                                    </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %} 
+
+
+                        </div>
+                        </div>
+                    </div>
+                 </div>
+                 {% endif %}
+            </div>  
+       </div>
+        
+         <div id="ancla2"></div>
+         <br>
+          
+        <div class="restmenuwrap">
+            <h3 class="maincat notopmarg text-center">RENTA DE AUTOBUSES O EXCURSIONES</h3>
+            <div class="maincat notopmarg">
+                {% set galeriaExcursiones = getGaleriaByReferencia("SERVICIO-EXCURSIONES") %}
+                {% if galeriaExcursiones | length > 0 %}
+                <div class="row infoService">
+                   <div class="col-lg-12 col-sm-12">
+                       <div class="">
+                       <div class="panel-body">
+
+                           {% for item in galeriaExcursiones %}
+                               {% if item.imagenes | length > 0 %}
+
+                                   {% set imagenes = item.imagenes %}
+                                   {% for imagen in imagenes %}
+                                       {% if loop.first %}
+                                           <div class="row media">
+                                           <div class="media-left col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                                       {% endif %}
+
+                                       <a class="fancybox linkLoadImage" title="{{ imagen.descripcion }}" rel="{{'gallery_' ~ item.id}}" href="{{ path('ajaxDataImagen', { 'id': imagen.id, 'full' : true }) }}" data-idimagen="{{ imagen.id }}" >
+                                       {% if loop.first %}
+                                           <img class="media-object {{ loop.parent.loop.first ? 'first' : '' }}" src="{{ 'data:image/jpg;base64,' ~ imagen.imagenPequena }}" title="Ver galeria de fotos"/>
+                                       {% endif %}
+                                       </a>    
+
+                                       {% if loop.first %}
+                                           </div>
+                                           <div class="media-body col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                                               {#<h4 class="media-heading">{{ item.nombre | upper }}</h4>#}
+                                               <p>{{ item.descripcion | nl2br }}</p>
+                                           </div>
+                                           </div>
+                                       {% endif %}
+                                   {% endfor %}
+
+                               {% else %}
+                                   <div class="media">
+                                   <div class="media-left col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                                       <img style="width: 254px;" class="media-object {{ loop.first ? 'first' : '' }}" src="{{ asset('bundles/maya/images/no-imagen.jpg') }}" />
+                                   </div>
+                                   <div class="media-body col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                                       <h4 class="media-heading">{{ item.nombre | upper }}</h4>
+                                       <p>{{ item.descripcion | nl2br }}</p>
+                                   </div>
+                                   </div>
+                               {% endif %}
+                           {% endfor %}
+
+                       </div>
+                       </div>
+                   </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+         <div id="ancla3"></div>
+         <br>
+          
+         <div class="restmenuwrap">
+            <h3 class="maincat notopmarg text-center">ENCOMIENDAS</h3>
+            <div class="maincat notopmarg">
+                {% set galeriaEncomiendas = getGaleriaByReferencia("SERVICIO-ENCOMIENDAS") %}
+                {% if galeriaEncomiendas | length > 0 %}
+                <div class="row infoService">
+                   <div class="col-lg-12 col-sm-12">
+                       <div class="">
+                       <div class="panel-body">                    
+
+                           {% for item in galeriaEncomiendas %}
+                               {% if item.imagenes | length > 0 %}
+
+                                   {% set imagenes = item.imagenes %}
+                                   {% for imagen in imagenes %}
+                                       {% if loop.first %}
+                                           <div class="row media">
+                                           <div class="media-left col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                                       {% endif %}
+
+                                       <a class="fancybox linkLoadImage" title="{{ imagen.descripcion }}" rel="{{'gallery_' ~ item.id}}" href="{{ path('ajaxDataImagen', { 'id': imagen.id, 'full' : true }) }}" data-idimagen="{{ imagen.id }}" >
+                                       {% if loop.first %}
+                                           <img class="media-object {{ loop.parent.loop.first ? 'first' : '' }}" src="{{ 'data:image/jpg;base64,' ~ imagen.imagenPequena }}" title="Ver galeria de fotos"/>
+                                       {% endif %}
+                                       </a>    
+
+                                       {% if loop.first %}
+                                           </div>
+                                           <div class="media-body col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                                               {#<h4 class="media-heading">{{ item.nombre | upper }}</h4>#}
+                                               <p>{{ item.descripcion | nl2br }}</p>
+                                           </div>
+                                           </div>
+                                       {% endif %}
+                                   {% endfor %}
+
+                               {% else %}
+                                   <div class="media">
+                                   <div class="media-left col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                                       <img style="width: 254px;" class="media-object {{ loop.first ? 'first' : '' }}" src="{{ asset('bundles/maya/images/no-imagen.jpg') }}" />
+                                   </div>
+                                   <div class="media-body col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                                       <h4 class="media-heading">{{ item.nombre | upper }}</h4>
+                                       <p>{{ item.descripcion | nl2br }}</p>
+                                   </div>
+                                   </div>
+                               {% endif %}
+                           {% endfor %}
+                       </div>
+                       </div>
+                   </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+         
+         <br>
+        
+    </div>
+    <div style="visibility: hidden"> <a href="#ancla{{ancla}}" id="anclaServicios" class='linkApp'></a></div>
+</section>
+<script type="text/javascript">
+jQuery(function($) {
+    $('#anclaServicios')[0].click();
+    service.funcionesAddOnload();
+});
+</script>

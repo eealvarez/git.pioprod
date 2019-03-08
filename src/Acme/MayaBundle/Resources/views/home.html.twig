@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="wrapper" id="wrapper">
+    
+        <input id="keyRecapcha" type="hidden" value="{{ getParameter('recaptcha_public_key') }}">
+        
+	<!--header-->
+	{{ include("MayaBundle::header.html.twig") }}
+        
+       
+        	
+	{#<!--about us-->
+        {{ include("MayaBundle::aboutUs.html.twig") }}
+        
+	<!--specialties-->
+        {{ include("MayaBundle::services.html.twig") }}
+        
+	<!--feedback-->
+        {% set pgl = getParameter('compra_en_linea') %}
+        {% if pgl is sameas(true) %}
+            {% render path('ticket')%}
+        {% else %}
+            {{ include("MayaBundle::compraOff.html.twig") }}
+        {% endif %}
+        <!--feedback-->
+        
+        <!--encomienda-->
+	{{ include("MayaBundle::encomienda.html.twig") }}
+        
+        <!--oficinas-->
+	{{ include("MayaBundle::oficinas.html.twig") }}
+        
+        <!--contact-->
+	{{ include("MayaBundle::contact.html.twig") }}#}
+        
+	<!--footer-->
+	{{ include("MayaBundle::footer.html.twig") }}
+	
+</div><!--wrapper end-->
+{% endblock %}
+

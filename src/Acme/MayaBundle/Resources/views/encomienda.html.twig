@@ -1,0 +1,76 @@
+<section class="encomienda" id="encomienda">
+    <div class="container">
+        <div class="heading text-center">
+            <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+            <h2>Encomiendas</h2>
+            <img class="dividerline" src="{{ asset('bundles/maya/images/sep.png') }}" alt="">
+        </div>
+        <div class="restmenuwrap">
+            <h3 class="maincat notopmarg text-center">BUSCAR ENCOMIENDAS</h3>
+            <div class="maincat notopmarg">
+                <div class="row infoEncomienda">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                   <div class="">
+                       <div class="panel-body">
+                            <form id="encomiendaForm" class="form-inline" role="form">
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="help-block" style="margin-bottom: 0px;">
+                                        Esta sección le permite realizar un seguimiento en tiempo real de los envíos de encomiendas, a través de dos opciones:
+                                    </div>
+                                    <ol>
+                                        <li>
+                                            Puede buscar las encomiendas por el número de guía. Esta información la puede obtener en el momento en que realiza el envío.
+                                        </li>
+                                        <li>
+                                            Puede iniciar su sesión en el sitio con su cuenta de facebook o twitter, y obtener su
+                                            código de cliente haciendo clic sobre su foto en el menú superior.  En el momento del envío puede proporcionar este
+                                            código, y de esta manera cuando usted inicie su sesión en el sitio, podrá ver sus
+                                            encomiendas sin necesidad de buscarlas por número de guía. Si desea que otras
+                                            personas consulten esta información de la misma manera, puede proporcionar en
+                                            el envío además de su código, los códigos de cliente obtenidos por estas
+                                            personas previamente autenticadas en el sitio. 
+                                        </li>
+                                   </ol>
+                                   <em>
+                                        <a id="clausulasEncomienda" class="btn btn-link" href="{{ path('ajaxClausulasEncomiendas') }}" data-loading-text="Cargando...">
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                            Términos y Condiciones
+                                        </a>
+                                   </em>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                                    <input style="width: 100%;" type="number" min="0" id="idEncomienda" value="" placeholder="Número guía" class="form-control"> 
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                                    <a id="buscarInfoEncomiendaBtn" href="{{ path('ajaxGetInfoEncomienda') }}" class="btn btn-primary btn-block colorBtn" data-loading-text="Cargando...">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        Buscar
+                                    </a>
+                                </div>
+                                {% set user = app.user %}
+                                {% if user is defined and getIsUserOauth(user) %}
+                                <div id='buscarInfoEncomiendaByClienteDiv' class="form-group col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                                    <a id="buscarInfoEncomiendaByClienteBtn" href="{{ path('ajaxGetInfoEncomiendaByCliente') }}" class="btn btn-primary btn-block colorBtn" data-loading-text="Cargando...">
+                                        <span class="glyphicon glyphicon-th-list"></span>
+                                        Listar por  
+                                        <em><abbr class="codigoUsuario uppercase" title="Código Cliente" class="initialism"></abbr></em>
+                                        &nbsp;
+                                    </a>
+                                </div>
+                                {% endif %}
+                                <div id="itemsPanel" class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px;"></div>
+                            </form>  
+                        </div>
+                  </div>
+                </div>
+             </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+<script type="text/javascript">
+jQuery(function($) {
+   encomienda.funcionesAddOnload();
+});
+</script>

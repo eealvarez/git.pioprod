@@ -1,0 +1,16 @@
+{% if map is not empty %}
+    {{ google_map(map) }}
+{% else %}
+    <small>
+    <address class="list-group-item-text">
+    <span class="glyphicon glyphicon-tag"></span> {{ estacion.nombre | upper }}({{ estacion.alias }})<BR>
+    <span class="glyphicon glyphicon-globe"></span><em> {{ estacion.direccion | nl2br }}</em>. 
+    {% if estacion.listaTelefonos is not empty %}
+        <BR><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;<em>{{ estacion.listaTelefonos }}</em>. 
+    {% endif %}                                                  
+    </address>
+    </small>
+{% endif %}
+  
+
+
